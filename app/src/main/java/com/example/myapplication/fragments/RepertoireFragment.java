@@ -21,12 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RepertoireFragment extends Fragment {
 
     private FragmentRepertoireBinding binding;
-    private Button testButton;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("test");
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentRepertoireBinding.inflate(inflater, container,false);

@@ -38,140 +38,146 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent" >
 
-        <EditText
-            android:id="@+id/etTitreRecette"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Titre de la recette "
-            android:inputType="text" />
-
-        <ImageView
-            android:id="@+id/uploadImage"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
-            app:srcCompat="@android:drawable/ic_menu_upload" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:text="Ingrédients"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/white_rounded_corners"
-            android:elevation="10dp">
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
 
             <EditText
-                android:id="@+id/etAjoutIngredient"
+                android:id="@+id/etTitreRecette"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="Ajouter un ingrédient"
+                android:hint="Titre de la recette "
                 android:inputType="text" />
 
-            <ImageButton
-                android:id="@+id/ibAjoutIngredient"
-                android:layout_width="62dp"
+            <ImageView
+                android:id="@+id/uploadImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                app:srcCompat="@android:drawable/ic_menu_upload" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|end"
-                android:layout_marginEnd="40dp"
-                android:background="@color/cardview_shadow_end_color"
-                android:src="@android:drawable/ic_input_add"
-                app:tint="@color/black" />
-        </FrameLayout>
+                android:layout_marginLeft="30dp"
+                android:text="Ingrédients"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
-            android:text="Descriptions"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/white_rounded_corners"
+                android:elevation="10dp">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="77dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/white_rounded_corners"
-            android:elevation="10dp">
+                <EditText
+                    android:id="@+id/etAjoutIngredient"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Ajouter un ingrédient"
+                    android:inputType="text" />
 
-            <EditText
-                android:id="@+id/etAjoutDescription"
+                <ImageButton
+                    android:id="@+id/ibAjoutIngredient"
+                    android:layout_width="62dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:layout_marginEnd="40dp"
+                    android:background="@color/cardview_shadow_end_color"
+                    android:src="@android:drawable/ic_input_add"
+                    app:tint="@color/black" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:text="Descriptions"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="77dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/white_rounded_corners"
+                android:elevation="10dp">
+
+                <EditText
+                    android:id="@+id/etAjoutDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ems="10"
+                    android:hint="Ajouter une description"
+                    android:inputType="text" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvTempsCuisson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:text="Temps de cuisson"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/white_rounded_corners"
+                android:elevation="10dp">
+
+
+                <EditText
+                    android:id="@+id/etTempsCuisson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ems="10"
+                    android:hint="Ajouter temps de cuisson"
+                    android:inputType="text" />
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/bPublier"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:ems="10"
-                android:hint="Ajouter une description"
-                android:inputType="text" />
-
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/tvTempsCuisson"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
-            android:text="Temps de cuisson"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/white_rounded_corners"
-            android:elevation="10dp">
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/jaune"
+                android:paddingHorizontal="50dp"
+                android:paddingVertical="10dp"
+                android:text="Publier"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
 
-            <EditText
-                android:id="@+id/etTempsCuisson"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:ems="10"
-                android:hint="Ajouter temps de cuisson"
-                android:inputType="text" />
-        </FrameLayout>
-
-        <Button
-            android:id="@+id/bPublier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/jaune"
-            android:paddingHorizontal="50dp"
-            android:paddingVertical="10dp"
-            android:text="Publier"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-
-
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>
