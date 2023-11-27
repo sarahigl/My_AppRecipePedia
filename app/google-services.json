@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "537007521437",
+    "firebase_url": "https://recipepedia-37f8a-default-rtdb.firebaseio.com",
+    "project_id": "recipepedia-37f8a",
+    "storage_bucket": "recipepedia-37f8a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537007521437:android:ff276807992e640d811e74",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDBE8_9px_FUOnHj2I-NVysHjAh28uTSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
