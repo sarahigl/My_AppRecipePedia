@@ -19,6 +19,7 @@
             android:layout_width="360dp"
             android:layout_height="match_parent"
             android:layout_gravity="center|top"
+            android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="Répertoire Recette"
@@ -33,7 +34,7 @@
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
             android:backgroundTint="#00FFFFFF"
-            android:src="@drawable/baseline_share_24"
+            android:src="@drawable/add_box"
             app:tint="#D2050505" />
     </LinearLayout>
 
@@ -55,50 +56,16 @@
 
         </androidx.appcompat.widget.SearchView>
 
-        <FrameLayout
-            android:id="@+id/tvContenuActu"
-            android:layout_width="390dp"
-            android:layout_height="108dp"
-            android:layout_marginLeft="10dp">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:id="@+id/contentRectangleR"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rVRepertoire"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:background="@drawable/white_rounded_corners"
-                android:elevation="10dp">
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="124dp"
-                    android:layout_height="67dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/pates" />
-
-                <TextView
-                    android:id="@+id/tvTitreRActu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="30dp"
-                    android:text="TitreRecette"
-                    android:textColor="@color/black"
-                    android:textColorLink="@color/jaune"
-                    android:textStyle="bold" />
-
-                <ImageButton
-                    android:id="@+id/imageButton"
-                    android:layout_width="34dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="clip_vertical"
-                    android:layout_marginStart="120dp"
-                    android:background="@drawable/selector_favoritelist_item"
-                    android:button="@null"
-                    app:useMaterialThemeColors="false" />
-
-            </LinearLayout>
-
-        </FrameLayout>
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/recycler_recette_repertoire" />
+        </ScrollView>
 
     </LinearLayout>
 

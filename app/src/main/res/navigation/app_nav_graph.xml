@@ -17,7 +17,7 @@
         android:id="@+id/navigation_repertoire"
         android:name="com.example.myapplication.fragments.RepertoireFragment"
         android:label="fragment_rep"
-        tools:layout="@layout/fragment_repertoire" >
+        tools:layout="@layout/fragment_repertoire">
         <action
             android:id="@+id/action_navigation_repertoire_to_detaileRecetteFragment"
             app:destination="@id/detaileRecetteFragment" />
@@ -25,6 +25,7 @@
             android:id="@+id/action_navigation_repertoire_to_Fragment_nouvelleRecette"
             app:destination="@id/Fragment_nouvelleRecette" />
     </fragment>
+
 
     <fragment
         android:id="@+id/profilFragment"

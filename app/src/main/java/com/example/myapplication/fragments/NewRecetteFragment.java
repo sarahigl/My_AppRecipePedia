@@ -71,6 +71,10 @@ public class NewRecetteFragment extends Fragment {
         etTempsCuisson = binding.etTempsCuisson;
         uploadImage = binding.uploadImage;
 
+        binding.ibRetourNewRecette.setOnClickListener(v -> {
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_Fragment_nouvelleRecette_to_navigation_repertoire);
+        });
+
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -78,11 +82,12 @@ public class NewRecetteFragment extends Fragment {
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == Activity.RESULT_OK) {
                             Intent data = result.getData();
-                            assert data != null;
-                            uri = data.getData();
-                            uploadImage.setImageURI(uri);
-                        } else {
-                            Toast.makeText(getActivity(), "No Image Selected", Toast.LENGTH_SHORT).show();
+                            if (data != null) {
+                                uri = data.getData();
+                                uploadImage.setImageURI(uri);
+                            } else {
+                                Toast.makeText(getActivity(), "No Image Selected", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 }
@@ -105,14 +110,6 @@ public class NewRecetteFragment extends Fragment {
 
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        binding.ibRetourNewRecette.setOnClickListener(v -> {
-            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_Fragment_nouvelleRecette_to_navigation_repertoire);
-        });
-    }
     public void saveData(){
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Android Images")
                 .child(Objects.requireNonNull(uri.getLastPathSegment()));
@@ -127,9 +124,7 @@ public class NewRecetteFragment extends Fragment {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                while (!uriTask.isComplete()) {
-                    ;
-                }
+                while (!uriTask.isComplete());
                 Uri urlImage = uriTask.getResult();
                 imageURL = urlImage.toString();
                 uploadData();
@@ -159,22 +154,24 @@ public class NewRecetteFragment extends Fragment {
             String newRecetteKey = recettesRef.push().getKey();
 
             // Enregistrez les données de la recette à l'emplacement avec le nouvel identifiant
-            recettesRef.child(newRecetteKey)
-                    .setValue(recette)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(getActivity(), "Recette enregistrée avec succès", Toast.LENGTH_SHORT).show();
+            if (newRecetteKey != null) {
+                recettesRef.child(newRecetteKey)
+                        .setValue(recette)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getActivity(), "Recette enregistrée avec succès", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getActivity(), e.getMessage().toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
         }
     }
 

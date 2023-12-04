@@ -1,11 +1,20 @@
 package com.example.myapplication.bean;
 
 public class Recette {
+    private String key;
     private String titre;
     private String ingredient;
     private String description;
     private String tempsCuisson;
     private String imageURL;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public String getIngredient() {
         return ingredient;
