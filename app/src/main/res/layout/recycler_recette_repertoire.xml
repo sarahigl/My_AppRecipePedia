@@ -40,7 +40,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1"
-                    android:text="titre"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textColorLink="@color/jaune"
                     android:textStyle="bold" />

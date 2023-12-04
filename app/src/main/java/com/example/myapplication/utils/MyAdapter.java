@@ -4,6 +4,7 @@ package com.example.myapplication.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,18 +57,24 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     }
 
+
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_recette_repertoire, parent, false);
-        return new MyViewHolder(view);
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {//instanciation de la ligne
+        RecyclerRecetteRepertoireBinding binding = RecyclerRecetteRepertoireBinding.inflate(LayoutInflater.from(parent.getContext()));
+        return new MyViewHolder(binding);
     }
 
+    //récuperation de l'item
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Glide.with(context).load(recetteList.get(position).getImageURL()).into(holder.imageRec);
-        holder.tvTitreRec.setText(recetteList.get(position).getTitre());
+        //Log.d("DEBUG", "Position : " + position);
+        Glide.with(holder.itemView.getContext()).load(recetteList.get(position).getImageURL()).into(holder.imageRec);
+        holder.binding.tvTitreRec.setText(recetteList.get(position).getTitre());
 
+
+        /*CardView est cliqué, un fragment (DetaileRecetteFragment) est créé, des données sont passées à ce fragment,
+        et une transaction de fragment est effectuée à l'aide du FragmentManager.*/
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +85,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                 Bundle bundle = new Bundle();
                 bundle.putString("Image", recetteList.get(holder.getAdapterPosition()).getImageURL());
                 bundle.putString("Titre", recetteList.get(holder.getAdapterPosition()).getTitre());
+                bundle.putString("Ingredient", recetteList.get(holder.getAdapterPosition()).getIngredient());
+                bundle.putString("Description", recetteList.get(holder.getAdapterPosition()).getDescription());
+                bundle.putString("Temps de Cuisson", recetteList.get(holder.getAdapterPosition()).getTempsCuisson());
                 fragment.setArguments(bundle);
 
                 // Use the fragment to get the FragmentManager
@@ -91,20 +101,21 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount() { //total d'éléments dans la liste (recetteList), indiquant ainsi combien d'éléments doivent être affichés dans le RecyclerView
         return recetteList.size();
     }
+
 }
 class MyViewHolder extends RecyclerView.ViewHolder {
-    private RecyclerRecetteRepertoireBinding binding;
+    RecyclerRecetteRepertoireBinding binding;
     ImageView imageRec;
-    TextView tvTitreRec;
     CardView recCard;
 
-    public MyViewHolder(@NonNull View itemView) {
-        super(itemView);
-        imageRec = itemView.findViewById(R.id.imageRec);
-        tvTitreRec = itemView.findViewById(R.id.tvTitreRec);
-        recCard = itemView.findViewById(R.id.recCard);
+    public MyViewHolder(RecyclerRecetteRepertoireBinding binding) {
+        super(binding.getRoot());
+        this.binding = binding;
+        imageRec = binding.imageRec;
+        recCard = binding.recCard;
     }
+
 }

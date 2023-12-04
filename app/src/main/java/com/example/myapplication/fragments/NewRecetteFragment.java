@@ -71,6 +71,7 @@ public class NewRecetteFragment extends Fragment {
         etTempsCuisson = binding.etTempsCuisson;
         uploadImage = binding.uploadImage;
 
+        //binding bouton retour repertoire
         binding.ibRetourNewRecette.setOnClickListener(v -> {
             Navigation.findNavController(binding.getRoot()).navigate(R.id.action_Fragment_nouvelleRecette_to_navigation_repertoire);
         });
@@ -110,6 +111,7 @@ public class NewRecetteFragment extends Fragment {
 
     }
 
+    //méthodes d'enregistrement image recette et des données entrée dans la BDD
     public void saveData(){
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Android Images")
                 .child(Objects.requireNonNull(uri.getLastPathSegment()));

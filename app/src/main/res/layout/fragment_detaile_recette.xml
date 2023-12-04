@@ -1,148 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detaileRecetteFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.DetaileRecetteFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/rounded_corners"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/ibRetourRepertoire"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="3dp"
-            android:layout_weight="1"
-            android:backgroundTint="#03FFFFFF"
-            android:src="@drawable/baseline_arrow_back_ios_24"
-            app:tint="@color/jaune" />
-
-        <TextView
-            android:layout_width="360dp"
-            android:layout_height="match_parent"
-            android:id="@+id/tvTitreDRecette"
-            android:layout_gravity="center|top"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="titre"
-            android:textColor="#2E2D2D"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:orientation="vertical">
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_corners"
+            android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/imageDRecette"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                app:srcCompat="@android:drawable/ic_menu_upload" />
-
-            <TextView
-                android:id="@+id/textView4"
+            <ImageButton
+                android:id="@+id/ibRetourRepertoire"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:text="Ingrédients"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/white_rounded_corners"
-                android:elevation="10dp">
-
-                <TextView
-                    android:id="@+id/tvIngredientRecette"
-                    android:text="ingredient"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:ems="10"
-                    android:gravity="center"/>
-
-            </FrameLayout>
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:backgroundTint="#03FFFFFF"
+                android:src="@drawable/baseline_arrow_back_ios_24"
+                app:tint="@color/jaune" />
 
             <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
-                android:text="Descriptions"
-                android:textColor="@color/black"
+                android:id="@+id/tvTitreDRecette"
+                android:layout_width="360dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center|top"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#2E2D2D"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="77dp"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/white_rounded_corners"
-                android:elevation="10dp">
-
-                <TextView
-                    android:id="@+id/tvDescriptionRecette"
-                    android:text="description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:ems="10" />
-
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/tvTempsCuisson"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
-                android:text="Temps de cuisson"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/white_rounded_corners"
-                android:elevation="10dp">
-
-
-                <TextView
-                    android:id="@+id/tvTempsCuissonRecette"
-                    android:text="temps de cuisson"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:ems="10"
-                    android:hint="Ajouter temps de cuisson"
-                    android:inputType="text" />
-            </FrameLayout>
         </LinearLayout>
-    </ScrollView>
 
-</FrameLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageDRecette"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    app:srcCompat="@android:drawable/ic_menu_upload" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="Ingrédients"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/white_rounded_corners"
+                    android:elevation="10dp">
+
+                    <TextView
+                        android:id="@+id/tvIngredientRecette"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:text="" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Descriptions"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/white_rounded_corners"
+                    android:elevation="10dp">
+
+                    <TextView
+                        android:id="@+id/tvDescriptionRecette"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:ems="10"
+                        android:text="" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tvTempsCuisson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Temps de cuisson"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/white_rounded_corners"
+                    android:elevation="10dp">
+
+
+                    <TextView
+                        android:id="@+id/tvTempsCuissonRecette"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:ems="10"
+                        android:text="" />
+                </FrameLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </FrameLayout>
+
+</LinearLayout>

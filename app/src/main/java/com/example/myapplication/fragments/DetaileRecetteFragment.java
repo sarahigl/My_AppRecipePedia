@@ -29,8 +29,6 @@ public class DetaileRecetteFragment extends Fragment {
 
     private FragmentDetaileRecetteBinding binding;
     private ImageButton boutonRetour;
-    TextView tvTitreDRecette, tvDescriptionRecette, tvIngredientRecette;
-    ImageView imageDRecette;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -38,11 +36,6 @@ public class DetaileRecetteFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentDetaileRecetteBinding.inflate(inflater, container, false);
         boutonRetour = binding.ibRetourRepertoire;
-
-        tvTitreDRecette = binding.tvTitreDRecette;
-        tvIngredientRecette = binding.tvDescriptionRecette;
-        tvDescriptionRecette = binding.tvDescriptionRecette;
-        imageDRecette = binding.imageDRecette;
 
         //recetteList();
         return binding.getRoot();
@@ -58,17 +51,4 @@ public class DetaileRecetteFragment extends Fragment {
         });
 
     }
-   /* public void recetteList(){
-        //Intent intent = requireActivity().getIntent();
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            //Bundle bundle = intent.getExtras();
-            //assert bundle != null;
-            tvDescriptionRecette.setText(bundle.getString("Description"));
-            tvTitreDRecette.setText(bundle.getString("Titre"));
-            tvIngredientRecette.setText(bundle.getString("Ingrédients"));
-            Glide.with(this).load(bundle.getString("Image")).into(imageDRecette);
-
-        }
-    }*/
 }

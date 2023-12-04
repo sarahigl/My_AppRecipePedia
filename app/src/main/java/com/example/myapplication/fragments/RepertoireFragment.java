@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,16 +46,18 @@ public class RepertoireFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentRepertoireBinding.inflate(inflater, container,false);
-
+        //binding bouton ouverture fragment new recette
         binding.ibNewRecetteAjout.setOnClickListener(v -> {
             Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigation_repertoire_to_Fragment_nouvelleRecette);
         });
 
-        recyclerView = binding.rVRepertoire; //getActivity est l'équivalent de class.this
+        //Initialisation de RecyclerView et du gestionnaire de disposition
+        recyclerView = binding.rVRepertoire; // Obtient la référence au RecyclerView à partir du layout lié
+        //getActivity est l'équivalent de class.this
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        recyclerView.setLayoutManager(gridLayoutManager);
+        //Création boîte de dialogue avec une vue personnalisée
         Activity activity = getActivity();
         if (activity != null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -63,32 +66,40 @@ public class RepertoireFragment extends Fragment {
             AlertDialog dialog = builder.create();
             dialog.show();
 
-
+            //Initialisation de la liste de recettes et connexion à l'adaptateur
             recetteList = new ArrayList<>();
-
-            //connection avec l'adapteur
-            MyAdapter adapter = new MyAdapter(((AppCompatActivity) getActivity()).getSupportFragmentManager(), recetteList);
+            MyAdapter adapter = new MyAdapter(getActivity().getSupportFragmentManager(), recetteList);
             recyclerView.setAdapter(adapter);
 
-            databaseReference = FirebaseDatabase.getInstance().getReference("Recettes");
+            //Récupération des données depuis Firebase Realtime Database
+            databaseReference = FirebaseDatabase.getInstance().getReference("Recette");
             dialog.show();
             eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+                //écouteur d'événements à la référence de la BDD => déclenché chaque fois que les données sous la référence changent
                 @SuppressLint("NotifyDataSetChanged")
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    /*les données sont lues à partir de snapshot (une représentation instantanée des données dans la base de données)
+                    et mises à jour dans la liste recetteList*/
                     recetteList.clear();
                     for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                         Recette recette = itemSnapshot.getValue(Recette.class);
-                        assert recette != null;
-                        recette.setKey(itemSnapshot.getKey());
-                        recetteList.add(recette);
+                        if(recette != null){
+                            recette.setKey(itemSnapshot.getKey());
+                            recetteList.add(recette);
+                        }
                     }
+                    //Log.d("DEBUG", "Nombre d'éléments dans la liste : " + recetteList.size());
                     adapter.notifyDataSetChanged();
-                    dialog.dismiss();
+
+                    if (dialog.isShowing()) { //aider à éviter des erreurs potentielles liées à la libération d'une ressource qui a déjà été libérée
+                        dialog.dismiss();
+                    }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
+                    //si la lecture des données est annulée la boîte de dialogue est simplement fermée
                     dialog.dismiss();
                 }
             });
