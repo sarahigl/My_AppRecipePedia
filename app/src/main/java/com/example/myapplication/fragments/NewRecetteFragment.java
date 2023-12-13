@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -22,9 +24,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ViewModel.RecetteViewModel;
 import com.example.myapplication.bean.Recette;
 import com.example.myapplication.databinding.FragmentNewRecetteBinding;
 import com.example.myapplication.databinding.FragmentParametreBinding;
@@ -50,8 +54,11 @@ import java.util.Objects;
 public class NewRecetteFragment extends Fragment {
 
     private FragmentNewRecetteBinding binding;
+    private RecetteViewModel recetteViewModel;
+
     Button publicationButton;
     EditText etTitreRecette, etAjoutIngredient, etAjoutDescription, etTempsCuisson;
+    TextView tvTitreDRecette,tvIngredientRecette, tvDescriptionRecette, tvTempsCuissonRecette;
     ImageView uploadImage;
     String imageURL;
     //Uniform Resource Identifier
@@ -71,42 +78,50 @@ public class NewRecetteFragment extends Fragment {
         etTempsCuisson = binding.etTempsCuisson;
         uploadImage = binding.uploadImage;
 
-        //binding bouton retour repertoire
-        binding.ibRetourNewRecette.setOnClickListener(v -> {
-            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_Fragment_nouvelleRecette_to_navigation_repertoire);
+
+
+        recetteViewModel = new ViewModelProvider(requireActivity()).get(RecetteViewModel.class);
+
+        // Observer pour l'URL de l'image
+        recetteViewModel.getImageURL().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String newImageURL) {
+                // Mettez à jour votre interface utilisateur en fonction de la nouvelle URL de l'image
+                // Par exemple, si vous avez une ImageView nommée "imageView", vous pouvez faire quelque chose comme :
+                // Glide.with(requireContext()).load(newImageURL).into(imageView);
+            }
         });
+        // Observer pour le titre
+        //recetteViewModel.getTitre().observe(getViewLifecycleOwner(), newTitre -> tvTitreDRecette.setText());
+
+        // Observer pour le ingredient
+        recetteViewModel.getIngredient().observe(getViewLifecycleOwner(), newIngredient -> etAjoutIngredient.setText(newIngredient));
+        // Observer pour le description
+        recetteViewModel.getDescription().observe(getViewLifecycleOwner(), newDescription -> etAjoutDescription.setText(newDescription));
+        // Observer pour le temps de cuisson
+        recetteViewModel.getTempsCuisson().observe(getViewLifecycleOwner(), newCuisson -> etTempsCuisson.setText(newCuisson));
+
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == Activity.RESULT_OK) {
-                            Intent data = result.getData();
-                            if (data != null) {
-                                uri = data.getData();
-                                uploadImage.setImageURI(uri);
-                            } else {
-                                Toast.makeText(getActivity(), "No Image Selected", Toast.LENGTH_SHORT).show();
-                            }
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            uri = data.getData();
+                            uploadImage.setImageURI(uri);
+                        } else {
+                            Toast.makeText(getActivity(), "No Image Selected", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
         );
-        uploadImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent photoPicker = new Intent(Intent.ACTION_PICK);
-                photoPicker.setType("image/*");
-                activityResultLauncher.launch(photoPicker);
-            }
+        uploadImage.setOnClickListener(view -> {
+            Intent photoPicker = new Intent(Intent.ACTION_PICK);
+            photoPicker.setType("image/*");
+            activityResultLauncher.launch(photoPicker);
         });
-        publicationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveData();
-            }
-        });
+        publicationButton.setOnClickListener(view -> saveData());
 
         return binding.getRoot();
 
@@ -150,6 +165,14 @@ public class NewRecetteFragment extends Fragment {
             // Créer un objet pour stocker les données
             Recette recette = new Recette(titre, ingredient, description, cuisson, imageURL);
 
+            // Mettez à jour les valeurs du ViewModel
+            recetteViewModel.setImageURL(imageURL);
+            recetteViewModel.setTitre(titre);
+            recetteViewModel.setIngredient(ingredient);
+            recetteViewModel.setDescription(description);
+            recetteViewModel.setTempsCuisson(cuisson);
+
+
             // Obtenir une référence à la base de données
             DatabaseReference recettesRef = FirebaseDatabase.getInstance().getReference("Recette");
 
@@ -178,7 +201,14 @@ public class NewRecetteFragment extends Fragment {
         }
     }
 
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //binding bouton retour repertoire
+        binding.ibRetourNewRecette.setOnClickListener(v -> {
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_Fragment_nouvelleRecette_to_navigation_repertoire);
+        });
+    }
 
     @Override //vide le cache mémoire
     public void onDestroy() {

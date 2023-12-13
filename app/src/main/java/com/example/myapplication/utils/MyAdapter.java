@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -96,6 +97,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                 recetteViewModel.setIngredient(recetteList.get(holder.getAdapterPosition()).getIngredient());
                 recetteViewModel.setDescription(recetteList.get(holder.getAdapterPosition()).getDescription());
                 recetteViewModel.setTempsCuisson(recetteList.get(holder.getAdapterPosition()).getTempsCuisson());
+
+                Navigation.findNavController(v).navigate(R.id.action_navigation_repertoire_to_detaileRecetteFragment);
             }
         });
     }

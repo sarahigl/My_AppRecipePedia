@@ -13,7 +13,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,110 +46,111 @@
 
         </LinearLayout>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    </FrameLayout>
 
-            <LinearLayout
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageDRecette"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                app:srcCompat="@android:drawable/ic_menu_upload" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="Ingrédients"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:orientation="vertical">
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/white_rounded_corners"
+                android:elevation="10dp">
 
-                <ImageView
-                    android:id="@+id/imageDRecette"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                <TextView
+                    android:id="@+id/tvIngredientRecette"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="20dp"
-                    app:srcCompat="@android:drawable/ic_menu_upload" />
+                    android:ems="10"
+                    android:gravity="center"
+                    android:text="" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:text="Descriptions"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/white_rounded_corners"
+                android:elevation="10dp">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/tvDescriptionRecette"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:text="Ingrédients"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:layout_gravity="center"
+                    android:ems="10"
+                    android:text="" />
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/white_rounded_corners"
-                    android:elevation="10dp">
+            </FrameLayout>
 
-                    <TextView
-                        android:id="@+id/tvIngredientRecette"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:ems="10"
-                        android:gravity="center"
-                        android:text="" />
+            <TextView
+                android:id="@+id/tvTempsCuisson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:text="Temps de cuisson"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
-                </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/white_rounded_corners"
+                android:elevation="10dp">
 
                 <TextView
-                    android:id="@+id/textView9"
+                    android:id="@+id/tvTempsCuissonRecette"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
-                    android:text="Descriptions"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:layout_gravity="center"
+                    android:ems="10"
+                    android:text="" />
+            </FrameLayout>
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/white_rounded_corners"
-                    android:elevation="10dp">
-
-                    <TextView
-                        android:id="@+id/tvDescriptionRecette"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:ems="10"
-                        android:text="" />
-
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tvTempsCuisson"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
-                    android:text="Temps de cuisson"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/white_rounded_corners"
-                    android:elevation="10dp">
-
-
-                    <TextView
-                        android:id="@+id/tvTempsCuissonRecette"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:ems="10"
-                        android:text="" />
-                </FrameLayout>
-            </LinearLayout>
-        </ScrollView>
-
-    </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
