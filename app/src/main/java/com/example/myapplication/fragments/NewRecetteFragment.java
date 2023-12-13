@@ -107,6 +107,7 @@ public class NewRecetteFragment extends Fragment {
                 saveData();
             }
         });
+
         return binding.getRoot();
 
     }
@@ -140,14 +141,14 @@ public class NewRecetteFragment extends Fragment {
         });
     }
     public void uploadData() {
+        String titre = etTitreRecette.getText().toString();
+        String ingredient = etAjoutIngredient.getText().toString();
+        String description = etAjoutDescription.getText().toString();
+        String cuisson = etTempsCuisson.getText().toString();
+
         if (etTitreRecette != null && etAjoutIngredient != null && etAjoutDescription != null && etTempsCuisson != null) {
             // Créer un objet pour stocker les données
-            Recette recette = new Recette(
-                    etTitreRecette.getText().toString(),
-                    etAjoutIngredient.getText().toString(),
-                    etAjoutDescription.getText().toString(),
-                    etTempsCuisson.getText().toString()
-            );
+            Recette recette = new Recette(titre, ingredient, description, cuisson, imageURL);
 
             // Obtenir une référence à la base de données
             DatabaseReference recettesRef = FirebaseDatabase.getInstance().getReference("Recette");

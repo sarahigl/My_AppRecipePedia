@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
+import com.example.myapplication.ViewModel.RecetteViewModel;
 import com.example.myapplication.bean.Recette;
 import com.example.myapplication.databinding.FragmentDetaileRecetteBinding;
 import com.example.myapplication.databinding.RecyclerRecetteRepertoireBinding;
@@ -32,7 +33,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     private Context context;
     private List<Recette>recetteList;
-
+    private RecetteViewModel recetteViewModel;
     public Context getContext() {
         return context;
     }
@@ -53,6 +54,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         this.recetteList = recetteList;
     }
 
+    public MyAdapter(List<Recette> recetteList, RecetteViewModel recetteViewModel) {
+        this.recetteList = recetteList;
+        this.recetteViewModel = recetteViewModel;
+    }
+
     public MyAdapter() {
 
     }
@@ -69,7 +75,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         //Log.d("DEBUG", "Position : " + position);
-        Glide.with(holder.itemView.getContext()).load(recetteList.get(position).getImageURL()).into(holder.imageRec);
+        //ajouter un if -
+        String imageUrl = recetteList.get(position).getImageURL();
+        if(imageUrl != null && !imageUrl.isEmpty()){
+            Glide.with(holder.itemView.getContext()).load(recetteList.get(position).getImageURL()).dontAnimate().into(holder.imageRec);
+        }else{
+            Log.d("DEBUG", " no image ");
+            //mettre message d'erreur pour l'utilisateur
+        }
         holder.binding.tvTitreRec.setText(recetteList.get(position).getTitre());
 
 
@@ -78,24 +91,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Créer une instance du fragment
-                DetaileRecetteFragment fragment = new DetaileRecetteFragment();
-
-                // Passer des données au fragment s'il y en a
-                Bundle bundle = new Bundle();
-                bundle.putString("Image", recetteList.get(holder.getAdapterPosition()).getImageURL());
-                bundle.putString("Titre", recetteList.get(holder.getAdapterPosition()).getTitre());
-                bundle.putString("Ingredient", recetteList.get(holder.getAdapterPosition()).getIngredient());
-                bundle.putString("Description", recetteList.get(holder.getAdapterPosition()).getDescription());
-                bundle.putString("Temps de Cuisson", recetteList.get(holder.getAdapterPosition()).getTempsCuisson());
-                fragment.setArguments(bundle);
-
-                // Use the fragment to get the FragmentManager
-                FragmentManager fragmentManager = fragment.getParentFragmentManager(); //getParentFragmentManager() => remplace getFragmentManager car deprecated
-                fragmentManager.beginTransaction()
-                        .replace(R.id.detaileRecetteFragment, fragment)
-                        .addToBackStack(null)
-                        .commit();
+                recetteViewModel.setImageURL(recetteList.get(holder.getAdapterPosition()).getImageURL());
+                recetteViewModel.setTitre(recetteList.get(holder.getAdapterPosition()).getTitre());
+                recetteViewModel.setIngredient(recetteList.get(holder.getAdapterPosition()).getIngredient());
+                recetteViewModel.setDescription(recetteList.get(holder.getAdapterPosition()).getDescription());
+                recetteViewModel.setTempsCuisson(recetteList.get(holder.getAdapterPosition()).getTempsCuisson());
             }
         });
     }

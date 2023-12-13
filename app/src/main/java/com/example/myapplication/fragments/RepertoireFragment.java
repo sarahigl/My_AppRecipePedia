@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ViewModel.RecetteViewModel;
 import com.example.myapplication.bean.Recette;
 import com.example.myapplication.databinding.FragmentNewRecetteBinding;
 import com.example.myapplication.databinding.FragmentRepertoireBinding;
@@ -46,6 +48,9 @@ public class RepertoireFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentRepertoireBinding.inflate(inflater, container,false);
+
+        RecetteViewModel recetteViewModel = new ViewModelProvider(this).get(RecetteViewModel.class);
+
         //binding bouton ouverture fragment new recette
         binding.ibNewRecetteAjout.setOnClickListener(v -> {
             Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigation_repertoire_to_Fragment_nouvelleRecette);
@@ -68,7 +73,10 @@ public class RepertoireFragment extends Fragment {
 
             //Initialisation de la liste de recettes et connexion à l'adaptateur
             recetteList = new ArrayList<>();
-            MyAdapter adapter = new MyAdapter(getActivity().getSupportFragmentManager(), recetteList);
+            //1er adapteur marche
+            //MyAdapter adapter = new MyAdapter(getActivity().getSupportFragmentManager(), recetteList);
+            //2nd adapteur pour affichage data detail ne crash pas
+            MyAdapter adapter = new MyAdapter(recetteList, recetteViewModel);
             recyclerView.setAdapter(adapter);
 
             //Récupération des données depuis Firebase Realtime Database
