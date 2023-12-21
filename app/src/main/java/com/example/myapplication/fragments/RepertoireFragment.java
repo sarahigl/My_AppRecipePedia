@@ -38,6 +38,7 @@ import java.util.List;
 public class RepertoireFragment extends Fragment {
 
     private FragmentRepertoireBinding binding;
+    RecetteViewModel recetteViewModel;
     RecyclerView recyclerView;
     List<Recette> recetteList;
     DatabaseReference databaseReference;
@@ -49,7 +50,7 @@ public class RepertoireFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentRepertoireBinding.inflate(inflater, container,false);
 
-        RecetteViewModel recetteViewModel = new ViewModelProvider(this).get(RecetteViewModel.class);
+        recetteViewModel = new ViewModelProvider(this).get(RecetteViewModel.class);
 
         //binding bouton ouverture fragment new recette
         binding.ibNewRecetteAjout.setOnClickListener(v -> {

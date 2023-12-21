@@ -11,12 +11,13 @@
 
         <LinearLayout
             android:id="@+id/contentRectangleR"
-            android:layout_width="390dp"
+            android:layout_width="382dp"
             android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
             android:background="@drawable/white_rounded_corners"
-            android:elevation="10dp">
+            android:elevation="5dp">
 
             <ImageView
                 android:id="@+id/imageRec"
@@ -50,6 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:backgroundTint="#FFFFFF"
                     android:src="@android:drawable/btn_star" />
 
             </LinearLayout>

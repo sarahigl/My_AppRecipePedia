@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,12 +59,9 @@ public class NewRecetteFragment extends Fragment {
 
     Button publicationButton;
     EditText etTitreRecette, etAjoutIngredient, etAjoutDescription, etTempsCuisson;
-    TextView tvTitreDRecette,tvIngredientRecette, tvDescriptionRecette, tvTempsCuissonRecette;
     ImageView uploadImage;
     String imageURL;
-    //Uniform Resource Identifier
-    Uri uri;
-
+    Uri uri;//Uniform Resource Identifier
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -78,29 +76,7 @@ public class NewRecetteFragment extends Fragment {
         etTempsCuisson = binding.etTempsCuisson;
         uploadImage = binding.uploadImage;
 
-
-
         recetteViewModel = new ViewModelProvider(requireActivity()).get(RecetteViewModel.class);
-
-        // Observer pour l'URL de l'image
-        recetteViewModel.getImageURL().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String newImageURL) {
-                // Mettez à jour votre interface utilisateur en fonction de la nouvelle URL de l'image
-                // Par exemple, si vous avez une ImageView nommée "imageView", vous pouvez faire quelque chose comme :
-                // Glide.with(requireContext()).load(newImageURL).into(imageView);
-            }
-        });
-        // Observer pour le titre
-        //recetteViewModel.getTitre().observe(getViewLifecycleOwner(), newTitre -> tvTitreDRecette.setText());
-
-        // Observer pour le ingredient
-        recetteViewModel.getIngredient().observe(getViewLifecycleOwner(), newIngredient -> etAjoutIngredient.setText(newIngredient));
-        // Observer pour le description
-        recetteViewModel.getDescription().observe(getViewLifecycleOwner(), newDescription -> etAjoutDescription.setText(newDescription));
-        // Observer pour le temps de cuisson
-        recetteViewModel.getTempsCuisson().observe(getViewLifecycleOwner(), newCuisson -> etTempsCuisson.setText(newCuisson));
-
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -161,23 +137,20 @@ public class NewRecetteFragment extends Fragment {
         String description = etAjoutDescription.getText().toString();
         String cuisson = etTempsCuisson.getText().toString();
 
-        if (etTitreRecette != null && etAjoutIngredient != null && etAjoutDescription != null && etTempsCuisson != null) {
+        // Vérifier si les champs ne sont pas vides
+        if (!TextUtils.isEmpty(titre) && !TextUtils.isEmpty(ingredient) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(cuisson)) {
             // Créer un objet pour stocker les données
             Recette recette = new Recette(titre, ingredient, description, cuisson, imageURL);
 
-            // Mettez à jour les valeurs du ViewModel
+            // MaJ  valeurs du ViewModel
             recetteViewModel.setImageURL(imageURL);
             recetteViewModel.setTitre(titre);
             recetteViewModel.setIngredient(ingredient);
             recetteViewModel.setDescription(description);
             recetteViewModel.setTempsCuisson(cuisson);
 
-
-            // Obtenir une référence à la base de données
-            DatabaseReference recettesRef = FirebaseDatabase.getInstance().getReference("Recette");
-
-            // Utiliser push() pour générer un identifiant auto-incrémenté
-            String newRecetteKey = recettesRef.push().getKey();
+            DatabaseReference recettesRef = FirebaseDatabase.getInstance().getReference("Recette");//une référence à la BDD
+            String newRecetteKey = recettesRef.push().getKey();//push() pour générer un identifiant auto-incrémenté
 
             // Enregistrez les données de la recette à l'emplacement avec le nouvel identifiant
             if (newRecetteKey != null) {
@@ -187,7 +160,7 @@ public class NewRecetteFragment extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(getActivity(), "Recette enregistrée avec succès", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "Recette enregistrée", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         })
@@ -198,6 +171,9 @@ public class NewRecetteFragment extends Fragment {
                             }
                         });
             }
+        } else {
+            // Afficher un message d'erreur si un champ est vide
+            Toast.makeText(getActivity(), "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
         }
     }
 
