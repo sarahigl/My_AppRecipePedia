@@ -48,8 +48,24 @@ public class DetaileRecetteFragment extends Fragment {
         recetteViewModel = new ViewModelProvider(requireActivity()).get(RecetteViewModel.class);
         boutonRetour = binding.ibRetourRepertoire;
 
+        return binding.getRoot();
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.d("DEBUG", "DetailFragment onViewCreated");
 
+        // Observer pour l'URL de l'image
+        /*
+        recetteViewModel.getImageURL().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String newImageURL) {
+                // Mettez à jour votre interface utilisateur en fonction de la nouvelle URL de l'image
+                // Par exemple, si vous avez une ImageView nommée "imageView", vous pouvez faire quelque chose comme :
+                // Glide.with(requireContext()).load(newImageURL).into(imageView);
+            }
+        });*/
         // Observer pour le titre
         recetteViewModel.getTitre().observe(getViewLifecycleOwner(), newTitre -> {
             Log.d("DEBUG", "Observer for titre triggered" + newTitre);
@@ -76,29 +92,10 @@ public class DetaileRecetteFragment extends Fragment {
             }
         });
 
-        return binding.getRoot();
-    }
-
-
-
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        Log.d("DEBUG", "DetailFragment onViewCreated");
         boutonRetour.setOnClickListener(v -> {
             Navigation.findNavController(binding.getRoot()).navigate(R.id.action_detaileRecetteFragment_to_navigation_repertoire);
         });
-        // Observer pour l'URL de l'image
-        /*
-        recetteViewModel.getImageURL().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String newImageURL) {
-                // Mettez à jour votre interface utilisateur en fonction de la nouvelle URL de l'image
-                // Par exemple, si vous avez une ImageView nommée "imageView", vous pouvez faire quelque chose comme :
-                // Glide.with(requireContext()).load(newImageURL).into(imageView);
-            }
-        });*/
+
     }
     @Override //vide le cache mémoire
     public void onDestroy() {
