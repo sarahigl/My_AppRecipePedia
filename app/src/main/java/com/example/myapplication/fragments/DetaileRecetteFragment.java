@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.example.myapplication.ViewModel.RecetteViewModel;
 import com.example.myapplication.databinding.FragmentDetaileRecetteBinding;
 import com.example.myapplication.databinding.FragmentNewRecetteBinding;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -38,6 +40,7 @@ public class DetaileRecetteFragment extends Fragment {
     private ImageButton boutonRetour;
     TextView tvTitreDRecette,tvIngredientRecette, tvDescriptionRecette, tvTempsCuissonRecette;
     ImageView imageURL;
+
 
 
     @Override
@@ -72,10 +75,14 @@ public class DetaileRecetteFragment extends Fragment {
                 binding.tvTitreDRecette.setText(newTitre);
             }
         });
-        // Observer pour le ingredient
-        recetteViewModel.getIngredient().observe(getViewLifecycleOwner(), newIngredient -> {
-            if (newIngredient != null) {
-                binding.tvIngredientRecette.setText(newIngredient);
+        // Observer pour le ingredient et affichage avec retour à la ligne
+        recetteViewModel.getIngredients().observe(getViewLifecycleOwner(), newIngredients -> {
+            if (newIngredients != null) {
+                StringBuilder formattedIngredients = new StringBuilder();
+                for (String ingredient : newIngredients) {
+                    formattedIngredients.append(ingredient).append("\n");
+                }
+                binding.tvIngredientRecette.setText(formattedIngredients.toString());
             }
         });
         // Observer pour le description

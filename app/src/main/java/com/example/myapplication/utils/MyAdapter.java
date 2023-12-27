@@ -79,21 +79,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         }
         holder.binding.tvTitreRec.setText(recetteList.get(position).getTitre());
 
-
         /*CardView est cliqué, un fragment (DetaileRecetteFragment) est créé, des données sont passées à ce fragment,
         et une transaction de fragment est effectuée à l'aide du FragmentManager.*/
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_navigation_repertoire_to_detaileRecetteFragment);
                 //nouvelle instance du ViewModel pour adapteur sinon les recette affiche pas les bonnes data mais celle d'une seule et meme recette.
                 RecetteViewModel fragmentViewModel = new
                         ViewModelProvider((ViewModelStoreOwner) v.getContext()).get(RecetteViewModel.class);
                 fragmentViewModel.setImageURL(recetteList.get(holder.getAdapterPosition()).getImageURL());
                 fragmentViewModel.setTitre(recetteList.get(holder.getAdapterPosition()).getTitre());
-                fragmentViewModel.setIngredient(recetteList.get(holder.getAdapterPosition()).getIngredient());
+                fragmentViewModel.setIngredients(recetteList.get(holder.getAdapterPosition()).getIngredients());
                 fragmentViewModel.setDescription(recetteList.get(holder.getAdapterPosition()).getDescription());
                 fragmentViewModel.setTempsCuisson(recetteList.get(holder.getAdapterPosition()).getTempsCuisson());
+                Navigation.findNavController(v).navigate(R.id.action_navigation_repertoire_to_detaileRecetteFragment);
             }
         });
     }

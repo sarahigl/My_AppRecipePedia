@@ -1,9 +1,11 @@
 package com.example.myapplication.bean;
 
+import java.util.List;
+
 public class Recette {
     private String key;
     private String titre;
-    private String ingredient;
+    private List<String> ingredients;
     private String description;
     private String tempsCuisson;
     private String imageURL;
@@ -16,12 +18,12 @@ public class Recette {
         this.key = key;
     }
 
-    public String getIngredient() {
-        return ingredient;
+    public List<String> getIngredients() {
+        return ingredients;
     }
 
-    public void setIngredient(String ingredient) {
-        this.ingredient = ingredient;
+    public void setIngredients(List<String> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public String getDescription() {
@@ -56,19 +58,19 @@ public class Recette {
         this.titre = titre;
     }
 
-    public Recette(String titre, String ingredient, String description, String tempsCuisson, String imageURL) {
+    public Recette(String titre, List<String> ingredients, String description, String tempsCuisson) {
         this.titre = titre;
-        this.ingredient = ingredient;
+        this.ingredients = ingredients;
+        this.description = description;
+        this.tempsCuisson = tempsCuisson;
+    }
+
+    public Recette(String titre, List<String> ingredients, String description, String tempsCuisson, String imageURL) {
+        this.titre = titre;
+        this.ingredients = ingredients;
         this.description = description;
         this.tempsCuisson = tempsCuisson;
         this.imageURL = imageURL;
-    }
-
-    public Recette(String titre, String ingredient, String description, String tempsCuisson) {
-        this.titre = titre;
-        this.ingredient = ingredient;
-        this.description = description;
-        this.tempsCuisson = tempsCuisson;
     }
 
     public Recette() {}

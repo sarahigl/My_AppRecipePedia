@@ -49,7 +49,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.text.DateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class NewRecetteFragment extends Fragment {
@@ -140,12 +143,14 @@ public class NewRecetteFragment extends Fragment {
         // Vérifier si les champs ne sont pas vides
         if (!TextUtils.isEmpty(titre) && !TextUtils.isEmpty(ingredient) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(cuisson)) {
             // Créer un objet pour stocker les données
-            Recette recette = new Recette(titre, ingredient, description, cuisson, imageURL);
-
+            // Créer une liste d'ingrédients
+            List<String> ingredientsList = Arrays.asList(ingredient.split(", ")); // Supposant que les ingrédients sont séparés par des virgules et un espace
+            // Créer un objet pour stocker les données
+            Recette recette = new Recette(titre, ingredientsList, description, cuisson, imageURL);
             // MaJ  valeurs du ViewModel
             recetteViewModel.setImageURL(imageURL);
             recetteViewModel.setTitre(titre);
-            recetteViewModel.setIngredient(ingredient);
+            recetteViewModel.setIngredients(ingredientsList);
             recetteViewModel.setDescription(description);
             recetteViewModel.setTempsCuisson(cuisson);
 

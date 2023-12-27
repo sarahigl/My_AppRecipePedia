@@ -1,16 +1,20 @@
 package com.example.myapplication.ViewModel;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.Collections;
+import java.util.List;
+
 public class RecetteViewModel extends ViewModel {
 
     private final MutableLiveData<String> imageURL = new MutableLiveData<>();
     private final MutableLiveData<String> titre = new MutableLiveData<>("Titre par défaut");
-    private final MutableLiveData<String> ingredient = new MutableLiveData<>("Ingrédient par défaut");
+    private final MutableLiveData<List<String>> ingredients = new MutableLiveData<>();
     private final MutableLiveData<String> description = new MutableLiveData<>("Description par défaut");
     private final MutableLiveData<String> tempsCuisson = new MutableLiveData<>("Temps de cuisson par défaut");
 
@@ -31,12 +35,12 @@ public class RecetteViewModel extends ViewModel {
         return titre;
     }
 
-    public void setIngredient(String i) {
-        ingredient.setValue(i);
+    public MutableLiveData<List<String>> getIngredients() {
+        return ingredients;
     }
 
-    public LiveData<String> getIngredient() {
-        return ingredient;
+    public void setIngredients(List<String> newIngredients) {
+        ingredients.setValue(newIngredients);
     }
 
     public void setDescription(String d) {
