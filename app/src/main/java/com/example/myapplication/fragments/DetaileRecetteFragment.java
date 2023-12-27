@@ -41,8 +41,6 @@ public class DetaileRecetteFragment extends Fragment {
     TextView tvTitreDRecette,tvIngredientRecette, tvDescriptionRecette, tvTempsCuissonRecette;
     ImageView imageURL;
 
-
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

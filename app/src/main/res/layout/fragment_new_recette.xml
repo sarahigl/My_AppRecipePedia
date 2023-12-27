@@ -71,7 +71,7 @@
                     android:layout_height="150dp"
                     android:layout_gravity="center"
                     android:layout_marginBottom="20dp"
-                    app:srcCompat="@android:drawable/ic_menu_upload" />
+                    app:srcCompat="@drawable/add_photo" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -100,15 +100,6 @@
                         android:hint="Ajouter un ingrédient"
                         android:inputType="text" />
 
-                    <ImageButton
-                        android:id="@+id/ibAjoutIngredient"
-                        android:layout_width="62dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center|end"
-                        android:layout_marginEnd="40dp"
-                        android:background="@color/cardview_shadow_end_color"
-                        android:src="@android:drawable/ic_input_add"
-                        app:tint="@color/black" />
                 </FrameLayout>
 
                 <TextView

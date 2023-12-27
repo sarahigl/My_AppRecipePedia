@@ -16,7 +16,7 @@
         android:layout_weight="4"
         android:backgroundTint="#27FFFFFF"
         android:gravity="start|center_vertical"
-        android:text="Loading..."
+        android:text="Chargement..."
         android:textColor="@color/jaune"
         android:textSize="18sp" />
 </LinearLayout>
