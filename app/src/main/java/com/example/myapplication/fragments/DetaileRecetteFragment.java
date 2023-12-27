@@ -37,6 +37,7 @@ public class DetaileRecetteFragment extends Fragment {
     private RecetteViewModel recetteViewModel;
     private ImageButton boutonRetour;
     TextView tvTitreDRecette,tvIngredientRecette, tvDescriptionRecette, tvTempsCuissonRecette;
+    ImageView imageURL;
 
 
     @Override
@@ -47,6 +48,7 @@ public class DetaileRecetteFragment extends Fragment {
         binding = FragmentDetaileRecetteBinding.inflate(inflater, container, false);
         recetteViewModel = new ViewModelProvider(requireActivity()).get(RecetteViewModel.class);
         boutonRetour = binding.ibRetourRepertoire;
+        imageURL = binding.imageDRecette;
 
         return binding.getRoot();
     }
@@ -57,15 +59,12 @@ public class DetaileRecetteFragment extends Fragment {
         Log.d("DEBUG", "DetailFragment onViewCreated");
 
         // Observer pour l'URL de l'image
-        /*
-        recetteViewModel.getImageURL().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String newImageURL) {
-                // Mettez à jour votre interface utilisateur en fonction de la nouvelle URL de l'image
-                // Par exemple, si vous avez une ImageView nommée "imageView", vous pouvez faire quelque chose comme :
-                // Glide.with(requireContext()).load(newImageURL).into(imageView);
+
+        recetteViewModel.getImageURL().observe(getViewLifecycleOwner(), newImage -> {
+           if (newImage != null) {
+               Glide.with(requireContext()).load(newImage).into(imageURL);
             }
-        });*/
+        });
         // Observer pour le titre
         recetteViewModel.getTitre().observe(getViewLifecycleOwner(), newTitre -> {
             Log.d("DEBUG", "Observer for titre triggered" + newTitre);

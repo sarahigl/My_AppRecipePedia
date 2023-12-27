@@ -86,6 +86,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_navigation_repertoire_to_detaileRecetteFragment);
+                //nouvelle instance du ViewModel pour adapteur sinon les recette affiche pas les bonnes data mais celle d'une seule et meme recette.
                 RecetteViewModel fragmentViewModel = new
                         ViewModelProvider((ViewModelStoreOwner) v.getContext()).get(RecetteViewModel.class);
                 fragmentViewModel.setImageURL(recetteList.get(holder.getAdapterPosition()).getImageURL());
