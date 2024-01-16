@@ -84,7 +84,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //nouvelle instance du ViewModel pour adapteur sinon les recette affiche pas les bonnes data mais celle d'une seule et meme recette.
+                //nouvelle instance du ViewModel pour adapteur sinon les recettes affiche pas les bonnes data mais celle d'une seule et meme recette.
                 RecetteViewModel fragmentViewModel = new
                         ViewModelProvider((ViewModelStoreOwner) v.getContext()).get(RecetteViewModel.class);
                 fragmentViewModel.setImageURL(recetteList.get(holder.getAdapterPosition()).getImageURL());

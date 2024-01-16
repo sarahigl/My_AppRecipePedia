@@ -57,10 +57,8 @@ public class DetaileRecetteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d("DEBUG", "DetailFragment onViewCreated");
-
+        //Log.d("DEBUG", "DetailFragment onViewCreated");
         // Observer pour l'URL de l'image
-
         recetteViewModel.getImageURL().observe(getViewLifecycleOwner(), newImage -> {
            if (newImage != null) {
                Glide.with(requireContext()).load(newImage).into(imageURL);
@@ -68,7 +66,7 @@ public class DetaileRecetteFragment extends Fragment {
         });
         // Observer pour le titre
         recetteViewModel.getTitre().observe(getViewLifecycleOwner(), newTitre -> {
-            Log.d("DEBUG", "Observer for titre triggered" + newTitre);
+            //Log.d("DEBUG", "Observer for titre triggered" + newTitre);
             if (newTitre != null) {
                 binding.tvTitreDRecette.setText(newTitre);
             }

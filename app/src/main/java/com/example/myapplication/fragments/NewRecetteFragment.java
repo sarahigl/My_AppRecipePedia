@@ -13,10 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -101,10 +104,15 @@ public class NewRecetteFragment extends Fragment {
             activityResultLauncher.launch(photoPicker);
         });
         publicationButton.setOnClickListener(view -> saveData());
-
         return binding.getRoot();
-
     }
+    /*public void returnRepertory(){
+        Fragment repertoireFragment = new RepertoireFragment();
+        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.navigation_repertoire, repertoireFragment);
+        fragmentTransaction.commit();
+    }*/
 
     //méthodes d'enregistrement image recette et des données entrée dans la BDD
     public void saveData(){
@@ -142,7 +150,6 @@ public class NewRecetteFragment extends Fragment {
 
         // Vérifier si les champs ne sont pas vides
         if (!TextUtils.isEmpty(titre) && !TextUtils.isEmpty(ingredient) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(cuisson)) {
-            // Créer un objet pour stocker les données
             // Créer une liste d'ingrédients
             List<String> ingredientsList = Arrays.asList(ingredient.split(", ")); // Supposant que les ingrédients sont séparés par des virgules et un espace
             // Créer un objet pour stocker les données

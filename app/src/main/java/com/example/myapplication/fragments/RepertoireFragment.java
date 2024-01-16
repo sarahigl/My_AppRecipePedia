@@ -74,9 +74,6 @@ public class RepertoireFragment extends Fragment {
 
             //Initialisation de la liste de recettes et connexion à l'adaptateur
             recetteList = new ArrayList<>();
-            //1er adapteur marche
-            //MyAdapter adapter = new MyAdapter(getActivity().getSupportFragmentManager(), recetteList);
-            //2nd adapteur pour affichage data detail ne crash pas
             MyAdapter adapter = new MyAdapter(recetteList, recetteViewModel);
             recyclerView.setAdapter(adapter);
 

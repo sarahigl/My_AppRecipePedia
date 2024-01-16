@@ -28,7 +28,7 @@ public class RecetteViewModel extends ViewModel {
 
     public void setTitre(String t) {
         titre.setValue(t);
-        Log.d("ViewModel", "Titre updated: " + t);
+        //Log.d("ViewModel", "Titre updated: " + t);
     }
 
     public LiveData<String> getTitre() {
