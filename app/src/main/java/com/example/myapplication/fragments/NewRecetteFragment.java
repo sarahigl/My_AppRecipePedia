@@ -164,6 +164,8 @@ public class NewRecetteFragment extends Fragment {
             DatabaseReference recettesRef = FirebaseDatabase.getInstance().getReference("Recette");//une référence à la BDD
             String newRecetteKey = recettesRef.push().getKey();//push() pour générer un identifiant auto-incrémenté
 
+            // le code ingredient ajouté ici ?
+
             // Enregistrez les données de la recette à l'emplacement avec le nouvel identifiant
             if (newRecetteKey != null) {
                 recettesRef.child(newRecetteKey)
@@ -204,3 +206,22 @@ public class NewRecetteFragment extends Fragment {
         binding = null;
     }
 }
+// pour respecter mon MLD
+/*
+for (String ingredient : ingredientsList) {
+        DatabaseReference newIngredientRef = ingredientsRef.push(); // Crée une nouvelle référence pour l'ingrédient
+        String ingredientId = newIngredientRef.getKey(); // Récupère l'ID de l'ingrédient nouvellement créé
+
+        // Crée un objet Ingredient et l'ajoute à la table des ingrédients
+        Ingredient newIngredient = new Ingredient(ingredientId, ingredient);
+        newIngredientRef.setValue(newIngredient);
+
+        // Associe l'ID de l'ingrédient à la recette dans la table des recettes
+        recetteViewModel.addIngredientId(ingredientId);
+        }
+
+public void addIngredientId(String ingredientId) {
+    // Ajoute l'ID de l'ingrédient à la liste des ingrédients de la recette
+    ingredientIds.add(ingredientId);
+}
+*/
