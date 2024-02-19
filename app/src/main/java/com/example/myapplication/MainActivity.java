@@ -19,14 +19,16 @@ import com.google.firebase.FirebaseApp;
 public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
     ActivityMainBinding binding;
     private NavController navController;
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         RecetteViewModel recetteViewModel = new ViewModelProvider(this).get(RecetteViewModel.class);
+
+        // Définir l'écouteur de sélection pour le BottomNavigationView
+        binding.bottomNavigationView.setOnItemSelectedListener(this);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         if (navHostFragment != null) {
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
             navController.navigate(R.id.navigation_home);
             return true;
         } else if (item.getItemId() == R.id.navigation_rep) {
-            navController.navigate(R.id.navigation_rep);
+            navController.navigate(R.id.navigation_repertoire);
             return true;
         } else if (item.getItemId() == R.id.navigation_profil) {
             navController.navigate(R.id.profilFragment);

@@ -142,6 +142,7 @@ public class NewRecetteFragment extends Fragment {
             }
         });
     }
+
     public void uploadData() {
         String titre = etTitreRecette.getText().toString();
         String ingredient = etAjoutIngredient.getText().toString();
@@ -164,7 +165,18 @@ public class NewRecetteFragment extends Fragment {
             DatabaseReference recettesRef = FirebaseDatabase.getInstance().getReference("Recette");//une référence à la BDD
             String newRecetteKey = recettesRef.push().getKey();//push() pour générer un identifiant auto-incrémenté
 
-            // le code ingredient ajouté ici ?
+            /*for (String ingredientSeul : ingredientsList) {
+                DatabaseReference newIngredientRef = FirebaseDatabase.getInstance().getReference("Ingredient"); // Crée une nouvelle référence pour l'ingrédient
+                String ingredientId = newIngredientRef.push().getKey();// Récupère l'ID de l'ingrédient nouvellement créé
+
+                // Crée un objet Ingredient et l'ajoute à la table des ingrédients
+                Ingredient newIngredient = new Ingredient(ingredientId, ingredient);
+                newIngredientRef.setValue(newIngredient);
+
+                // Associe l'ID de l'ingrédient à la recette dans la table des recettes
+                recetteViewModel.addIngredientId(ingredientId);
+            }*/
+
 
             // Enregistrez les données de la recette à l'emplacement avec le nouvel identifiant
             if (newRecetteKey != null) {

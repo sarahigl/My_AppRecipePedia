@@ -52,12 +52,22 @@ public class ProfilFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.ibParametre.setOnClickListener(v -> {
-            navController.navigate(R.id.action_profilFragment_to_parametreFragment2);
+        // Accéder à l'activité parente et obtenir le NavController
+        NavController navController = NavHostFragment.findNavController(this);
+
+        // Ensuite, utilisez le NavController pour la navigation
+        binding.ibParametre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_profilFragment_to_parametreFragment2);
+            }
         });
 
-        binding.ibFavoris.setOnClickListener(v -> {
-            navController.navigate(R.id.action_profilFragment_to_favorisfragment);
+        binding.ibFavoris.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_profilFragment_to_favorisfragment);
+            }
         });
     }
 
