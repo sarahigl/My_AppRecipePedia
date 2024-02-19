@@ -36,33 +36,22 @@ public class ProfilFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
         binding = FragmentProfilBinding.inflate(inflater, container,false);
-
-        //fait cracher l'app complete ne s'ouvre pas?!!! compatibilité??
-        //navController = Navigation.findNavController(getView());
-
-
         return binding.getRoot();
-
-
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         // Accéder à l'activité parente et obtenir le NavController
         NavController navController = NavHostFragment.findNavController(this);
-
-        // Ensuite, utilisez le NavController pour la navigation
+        //navigation vers fragments
         binding.ibParametre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.action_profilFragment_to_parametreFragment2);
             }
         });
-
         binding.ibFavoris.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,13 +59,9 @@ public class ProfilFragment extends Fragment {
             }
         });
     }
-
     @Override //vide le cache mémoire
     public void onDestroy() {
         super.onDestroy();
         binding = null;
     }
-
-
-
 }
