@@ -1,20 +1,13 @@
 package com.example.myapplication.fragments;
-
-import static android.content.Intent.getIntent;
-
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import android.text.TextUtils;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,10 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.ViewModel.RecetteViewModel;
 import com.example.myapplication.databinding.FragmentDetaileRecetteBinding;
-import com.example.myapplication.databinding.FragmentNewRecetteBinding;
 
-import java.util.List;
-import java.util.Objects;
 
 
 public class DetaileRecetteFragment extends Fragment {
