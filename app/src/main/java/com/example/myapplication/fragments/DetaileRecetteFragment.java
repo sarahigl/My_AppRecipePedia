@@ -37,7 +37,7 @@ public class DetaileRecetteFragment extends Fragment {
         Log.d("DEBUG", "DetailFragment onCreateView");
         // Inflate the layout for this fragment
         binding = FragmentDetaileRecetteBinding.inflate(inflater, container, false);
-        recetteViewModel = new ViewModelProvider(requireActivity()).get(RecetteViewModel.class);
+        recetteViewModel = new ViewModelProvider(getActivity()).get(RecetteViewModel.class);
         boutonRetour = binding.ibRetourRepertoire;
         imageURL = binding.imageDRecette;
 
