@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_actu"
+        android:id="@+id/navigation_chat"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="Actualité" />
+        android:title="Chat IA" />
 
     <item
         android:id="@+id/navigation_rep"

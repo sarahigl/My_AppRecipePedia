@@ -11,28 +11,48 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentHomeBinding;
-
-
 public class HomeFragment extends Fragment {
 
 private FragmentHomeBinding binding;
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(getLayoutInflater());
-        return binding.getRoot();
-    }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        binding = null;
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding.toggleButton.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            if (isChecked) {
+                if (checkedId == R.id.chat_ia) {
+                    handleChatIASelection();
+                } else if (checkedId == R.id.favoris_ia) {
+                    handleFavorisIASelection();
+                }
+            }
+        });
+        binding.toggleButton.check(R.id.chat_ia);
+
+        return binding.getRoot();
+    }
+    private void handleChatIASelection() {
+
+    }
+
+    private void handleFavorisIASelection() {
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding = null;
     }
 }

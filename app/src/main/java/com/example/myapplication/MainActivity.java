@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.navigation_actu) {
+        if (item.getItemId() == R.id.navigation_chat) {
             navController.navigate(R.id.navigation_home);
             return true;
         } else if (item.getItemId() == R.id.navigation_rep) {

@@ -6,4 +6,13 @@
         <item name="android:height">65dp</item>
         <item name="cornerSize">30dp</item>
     </style>
+    <style name="CustomToggleButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:textColor">@color/toggle_text_color</item>
+        <item name="backgroundTint">@color/toggle_background_color</item>
+        <item name="strokeColor">@color/jaune</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="cornerRadius">20dp</item>
+    </style>
 </resources>
