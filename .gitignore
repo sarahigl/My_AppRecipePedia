@@ -13,3 +13,8 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Docker
+../.env
+config/firebase-credentials.json
+

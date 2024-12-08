@@ -34,10 +34,9 @@
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
-        android:name="com.example.myapplication.fragments.ChatIAFragment"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
+        android:layout_height="match_parent"
+        android:id="@+id/fragmentContainerView">
+    </FrameLayout>
 </LinearLayout>

@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         } else {
             throw new IllegalStateException("NavHostFragment is null");
         }
+
         FirebaseApp.initializeApp(this);
     }
     @Override

@@ -11,7 +11,14 @@
         android:id="@+id/navigation_home"
         android:name="com.example.myapplication.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_chatIAFragment"
+            app:destination="@id/chatIAFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_favorisIAFragment"
+            app:destination="@id/favorisIAFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_repertoire"
@@ -74,5 +81,23 @@
         <action
             android:id="@+id/action_favorisfragment_to_profilFragment"
             app:destination="@id/profilFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatIAFragment"
+        android:name="com.example.myapplication.fragments.ChatIAFragment"
+        android:label="fragment_chat_i_a"
+        tools:layout="@layout/fragment_chat_i_a" >
+        <action
+            android:id="@+id/action_chatIAFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/favorisIAFragment"
+        android:name="com.example.myapplication.fragments.FavorisIAFragment"
+        android:label="fragment_favoris_i_a"
+        tools:layout="@layout/fragment_favoris_i_a" >
+        <action
+            android:id="@+id/action_favorisIAFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
     </fragment>
 </navigation>
