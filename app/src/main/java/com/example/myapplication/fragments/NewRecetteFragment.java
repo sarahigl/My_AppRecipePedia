@@ -207,9 +207,7 @@ public class NewRecetteFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //binding bouton retour repertoire
-        binding.ibRetourNewRecette.setOnClickListener(v -> {
-            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_Fragment_nouvelleRecette_to_navigation_repertoire);
-        });
+        binding.ibRetourNewRecette.setOnClickListener(v -> Navigation.findNavController(binding.getRoot()).navigate(R.id.action_Fragment_nouvelleRecette_to_navigation_repertoire));
     }
 
     @Override //vide le cache mémoire

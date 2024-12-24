@@ -30,9 +30,7 @@ public class ParametreFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.ibRetourFav.setOnClickListener(v -> {
-            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_parametreFragment2_to_profilFragment2);
-        });
+        binding.ibRetourFav.setOnClickListener(v -> Navigation.findNavController(binding.getRoot()).navigate(R.id.action_parametreFragment2_to_profilFragment2));
     }
     @Override //vide le cache mémoire
     public void onDestroy() {

@@ -13,6 +13,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "recipepedia.db";
     private static final int DATABASE_VERSION = 1;
 
+
     public static final class tableUtilisateur {
         public static final String TABLE_NAME = "Utilisateur";
         public static final String COLUMN_ID = "id_utilisateur";

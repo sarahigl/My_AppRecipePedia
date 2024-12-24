@@ -53,9 +53,7 @@ public class RepertoireFragment extends Fragment {
         recetteViewModel = new ViewModelProvider(this).get(RecetteViewModel.class);
 
         //binding bouton ouverture fragment new recette
-        binding.ibNewRecetteAjout.setOnClickListener(v -> {
-            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigation_repertoire_to_Fragment_nouvelleRecette);
-        });
+        binding.ibNewRecetteAjout.setOnClickListener(v -> Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigation_repertoire_to_Fragment_nouvelleRecette));
 
         //Initialisation de RecyclerView et du gestionnaire de disposition
         recyclerView = binding.rVRepertoire; // Obtient la référence au RecyclerView à partir du layout lié

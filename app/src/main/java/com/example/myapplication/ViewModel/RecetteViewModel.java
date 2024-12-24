@@ -1,14 +1,8 @@
 package com.example.myapplication.ViewModel;
 
-import android.util.Log;
-
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
-import java.io.Closeable;
-import java.util.Collections;
 import java.util.List;
 
 public class RecetteViewModel extends ViewModel {
@@ -69,9 +63,6 @@ public class RecetteViewModel extends ViewModel {
         // Ajoute l'ID de l'ingrédient à la liste des ingrédients de la recette
         ingredientIds.add(ingredientId);
     }*/
-
-    public RecetteViewModel() {
-    }
 }
 
 

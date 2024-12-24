@@ -4,7 +4,7 @@
     <string name="title_home">Actualite</string>
     <string name="title_dashboard">Repertoire</string>
     <string name="title_notifications">Profile</string>
-    <!-- TODO: Remove or change this placeholder text -->
+   
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="favorite_button_description"><![CDATA[<string name=\"favorite_button_description\">Bouton favori</string>]]></string>
     <string name="arrow_button_description"><![CDATA[<string name=\"arrow_button_description\">Afficher plus de détails</string>]]></string>
