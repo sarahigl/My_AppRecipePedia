@@ -93,7 +93,6 @@ public class RepertoireFragment extends Fragment {
                             recetteList.add(recette);
                         }
                     }
-                    //Log.d("DEBUG", "Nombre d'éléments dans la liste : " + recetteList.size());
                     adapter.notifyDataSetChanged();
 
                     if (dialog.isShowing()) { //aider à éviter des erreurs potentielles liées à la libération d'une ressource qui a déjà été libérée
