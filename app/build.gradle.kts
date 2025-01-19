@@ -59,6 +59,6 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.14.2")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.14.2")
     implementation ("com.google.android.material:material:1.12.0")
-
-    //implementation ("com.google.firebase:firebase-admin:9.1.1")
+    //openIA
+    implementation ("io.github.sashirestela:simple-openai:3.14.0")
 }

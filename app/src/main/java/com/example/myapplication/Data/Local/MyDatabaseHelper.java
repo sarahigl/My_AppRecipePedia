@@ -1,4 +1,4 @@
-package com.example.myapplication.dataBase;
+package com.example.myapplication.Data.Local;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -7,7 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-public class MyDatabaseHelper extends SQLiteOpenHelper {
+
+public class MyDatabaseHelper extends SQLiteOpenHelper{
 
     private Context context;
     private static final String DATABASE_NAME = "recipepedia.db";
@@ -82,7 +83,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 tableReponseIA.COLUMN_DATE + " TEXT NOT NULL, " +
                 tableReponseIA.COLUMN_ID_REQUEST_IA + " INTEGER, " +
                 "FOREIGN KEY (" + tableReponseIA.COLUMN_ID_REQUEST_IA + ") " +
-                "REFERENCES " + tableRequeteIA.TABLE_NAME + " (" + tableRequeteIA.COLUMN_ID + "));";
+                "REFERENCES " + tableRequeteIA.TABLE_NAME + " (" + tableRequeteIA.COLUMN_ID + ") ON DELETE CASCADE);";
         db.execSQL(createTableReponseIA);
 
         // Table Favoris_IA
@@ -107,9 +108,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + tableFavorisIA.TABLE_NAME);
         onCreate(db);
         }
-
-    // Méthode pour récupérer les favoris d'un utilisateur
     public Cursor getUserFavorites(int userId) {
+        //cursor => un pointeur qui se déplace à travers les lignes d'un tableau de données, vous permettant de lire les valeurs de chaque colonne pour chaque ligne
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM Favoris_IA " +
                 "INNER JOIN Reponse_IA ON Favoris_IA.id_reponse_ia = Reponse_IA.id_reponse_ia " +

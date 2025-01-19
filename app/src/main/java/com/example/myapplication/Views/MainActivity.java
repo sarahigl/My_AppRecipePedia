@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 
+import com.example.myapplication.R;
 import com.example.myapplication.ViewModel.RecetteViewModel;
 import com.example.myapplication.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationBarView;

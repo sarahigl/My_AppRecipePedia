@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.myapplication.fragments.HomeFragment"
+        android:name="com.example.myapplication.Views.IA.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/navigation_repertoire"
-        android:name="com.example.myapplication.fragments.RepertoireFragment"
+        android:name="com.example.myapplication.Views.Recipe.RepertoireFragment"
         android:label="fragment_rep"
         tools:layout="@layout/fragment_repertoire">
         <action
@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/profilFragment"
-        android:name="com.example.myapplication.fragments.ProfilFragment"
+        android:name="com.example.myapplication.Views.Other.ProfilFragment"
         android:label="fragment_profil"
         tools:layout="@layout/fragment_profil" >
         <action
@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/parametreFragment2"
-        android:name="com.example.myapplication.fragments.ParametreFragment"
+        android:name="com.example.myapplication.Views.Other.ParametreFragment"
         android:label="fragment_parametre"
         tools:layout="@layout/fragment_parametre" >
         <action
@@ -57,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/Fragment_nouvelleRecette"
-        android:name="com.example.myapplication.fragments.NewRecetteFragment"
+        android:name="com.example.myapplication.Views.Recipe.NewRecetteFragment"
         android:label="fragment_newRecette"
         tools:layout="@layout/fragment_new_recette" >
         <action
@@ -66,7 +66,7 @@
     </fragment>
     <fragment
         android:id="@+id/detaileRecetteFragment"
-        android:name="com.example.myapplication.fragments.DetaileRecetteFragment"
+        android:name="com.example.myapplication.Views.Recipe.DetaileRecetteFragment"
         android:label="fragment_detaile_recette"
         tools:layout="@layout/fragment_detaile_recette" >
         <action
@@ -75,7 +75,7 @@
     </fragment>
     <fragment
         android:id="@+id/favorisfragment"
-        android:name="com.example.myapplication.fragments.FavorisFragment"
+        android:name="com.example.myapplication.Views.Recipe.FavorisFragment"
         android:label="fragment_favoris"
         tools:layout="@layout/fragment_favoris" >
         <action
@@ -84,7 +84,7 @@
     </fragment>
     <fragment
         android:id="@+id/chatIAFragment"
-        android:name="com.example.myapplication.fragments.ChatIAFragment"
+        android:name="com.example.myapplication.Views.IA.ChatIAFragment"
         android:label="fragment_chat_i_a"
         tools:layout="@layout/fragment_chat_i_a" >
         <action
@@ -93,7 +93,7 @@
     </fragment>
     <fragment
         android:id="@+id/favorisIAFragment"
-        android:name="com.example.myapplication.fragments.FavorisIAFragment"
+        android:name="com.example.myapplication.Views.IA.FavorisIAFragment"
         android:label="fragment_favoris_i_a"
         tools:layout="@layout/fragment_favoris_i_a" >
         <action

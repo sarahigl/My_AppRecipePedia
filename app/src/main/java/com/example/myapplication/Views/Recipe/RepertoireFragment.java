@@ -1,31 +1,26 @@
-package com.example.myapplication.fragments;
+package com.example.myapplication.Views.Recipe;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.myapplication.R;
 import com.example.myapplication.ViewModel.RecetteViewModel;
-import com.example.myapplication.bean.Recette;
-import com.example.myapplication.databinding.FragmentNewRecetteBinding;
+import com.example.myapplication.Model.Recette;
 import com.example.myapplication.databinding.FragmentRepertoireBinding;
-import com.example.myapplication.utils.MyAdapter;
+import com.example.myapplication.Utils.MyAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

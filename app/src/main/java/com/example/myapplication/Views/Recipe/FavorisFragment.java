@@ -1,38 +1,40 @@
-package com.example.myapplication.fragments;
+package com.example.myapplication.Views.Recipe;
+
+import static androidx.navigation.fragment.FragmentKt.findNavController;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.R;
-import com.example.myapplication.databinding.FragmentParametreBinding;
-import com.example.myapplication.databinding.FragmentProfilBinding;
+import com.example.myapplication.databinding.FragmentFavorisBinding;
 
-public class ParametreFragment extends Fragment {
-    private FragmentParametreBinding binding;
+public class FavorisFragment extends Fragment {
+    private FragmentFavorisBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentParametreBinding.inflate(inflater, container,false);
-
+        binding = FragmentFavorisBinding.inflate(inflater, container,false);
         return binding.getRoot();
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        binding.ibRetourFav.setOnClickListener(v -> Navigation.findNavController(binding.getRoot()).navigate(R.id.action_parametreFragment2_to_profilFragment2));
+        binding.ibRetourFav.setOnClickListener(v -> {
+            findNavController(this).navigate(R.id.action_favorisfragment_to_profilFragment);
+        });
     }
-    @Override //vide le cache mémoire
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         binding = null;

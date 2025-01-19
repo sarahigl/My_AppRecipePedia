@@ -5,7 +5,7 @@
     android:id="@+id/Fragment_nouvelleRecette"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.NewRecetteFragment">
+    tools:context=".Views.Recipe.NewRecetteFragment">
 
 
     <LinearLayout

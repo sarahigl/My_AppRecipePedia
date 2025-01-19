@@ -1,60 +1,43 @@
-package com.example.myapplication.fragments;
+package com.example.myapplication.Views.Recipe;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.ViewModel.RecetteViewModel;
-import com.example.myapplication.bean.Recette;
+import com.example.myapplication.Model.Recette;
 import com.example.myapplication.databinding.FragmentNewRecetteBinding;
-import com.example.myapplication.databinding.FragmentParametreBinding;
-import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Firebase;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.firebase.appcheck.FirebaseAppCheck;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.text.DateFormat;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -106,14 +89,6 @@ public class NewRecetteFragment extends Fragment {
         publicationButton.setOnClickListener(view -> saveData());
         return binding.getRoot();
     }
-    /*public void returnRepertory(){
-        Fragment repertoireFragment = new RepertoireFragment();
-        FragmentManager fragmentManager = getParentFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.navigation_repertoire, repertoireFragment);
-        fragmentTransaction.commit();
-    }*/
-
     //méthodes d'enregistrement image recette et des données entrée dans la BDD
     public void saveData(){
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Android Images")
@@ -164,19 +139,6 @@ public class NewRecetteFragment extends Fragment {
 
             DatabaseReference recettesRef = FirebaseDatabase.getInstance().getReference("Recette");//une référence à la BDD
             String newRecetteKey = recettesRef.push().getKey();//push() pour générer un identifiant auto-incrémenté
-
-            /*for (String ingredientSeul : ingredientsList) {
-                DatabaseReference newIngredientRef = FirebaseDatabase.getInstance().getReference("Ingredient"); // Crée une nouvelle référence pour l'ingrédient
-                String ingredientId = newIngredientRef.push().getKey();// Récupère l'ID de l'ingrédient nouvellement créé
-
-                // Crée un objet Ingredient et l'ajoute à la table des ingrédients
-                Ingredient newIngredient = new Ingredient(ingredientId, ingredient);
-                newIngredientRef.setValue(newIngredient);
-
-                // Associe l'ID de l'ingrédient à la recette dans la table des recettes
-                recetteViewModel.addIngredientId(ingredientId);
-            }*/
-
 
             // Enregistrez les données de la recette à l'emplacement avec le nouvel identifiant
             if (newRecetteKey != null) {
@@ -235,3 +197,15 @@ public void addIngredientId(String ingredientId) {
     ingredientIds.add(ingredientId);
 }
 */
+
+            /*for (String ingredientSeul : ingredientsList) {
+                DatabaseReference newIngredientRef = FirebaseDatabase.getInstance().getReference("Ingredient"); // Crée une nouvelle référence pour l'ingrédient
+                String ingredientId = newIngredientRef.push().getKey();// Récupère l'ID de l'ingrédient nouvellement créé
+
+                // Crée un objet Ingredient et l'ajoute à la table des ingrédients
+                Ingredient newIngredient = new Ingredient(ingredientId, ingredient);
+                newIngredientRef.setValue(newIngredient);
+
+                // Associe l'ID de l'ingrédient à la recette dans la table des recettes
+                recetteViewModel.addIngredientId(ingredientId);
+            }*/

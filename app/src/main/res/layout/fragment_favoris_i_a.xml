@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/fragmentFavIA"
-    tools:context=".fragments.FavorisIAFragment" >
+    tools:context=".Views.IA.FavorisIAFragment" >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFavIA"

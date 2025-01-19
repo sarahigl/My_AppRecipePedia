@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragments.FavorisIADetailsFragment">
+    tools:context=".Views.IA.FavorisIADetailsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".fragments.RepertoireFragment">
+    tools:context=".Views.Recipe.RepertoireFragment">
 
 
     <FrameLayout
@@ -76,7 +76,6 @@
             android:backgroundTint="#00FFFFFF"
             android:src="@drawable/add_box"
             app:tint="#9E050505" />
-
     </LinearLayout>
 
     <LinearLayout

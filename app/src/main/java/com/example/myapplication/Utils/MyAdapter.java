@@ -1,4 +1,4 @@
-package com.example.myapplication.utils;
+package com.example.myapplication.Utils;
 
 
 import android.content.Context;
@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.ViewModel.RecetteViewModel;
-import com.example.myapplication.bean.Recette;
+import com.example.myapplication.Model.Recette;
 import com.example.myapplication.databinding.RecyclerRecetteRepertoireBinding;
 
 import java.util.List;

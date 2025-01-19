@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/white_rounded_corners"
-    tools:context=".fragments.ProfilFragment">
+    tools:context=".Views.Other.ProfilFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

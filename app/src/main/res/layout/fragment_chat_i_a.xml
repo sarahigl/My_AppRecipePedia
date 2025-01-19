@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="bottom"
     android:orientation="vertical"
-    tools:context=".fragments.ChatIAFragment">
+    tools:context=".Views.IA.ChatIAFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         android:paddingBottom="10dp">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvchat_user"
+            android:id="@+id/rvchatUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -43,6 +43,7 @@
         android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputchat"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="5dp"

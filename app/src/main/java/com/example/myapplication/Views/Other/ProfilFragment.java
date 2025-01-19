@@ -1,5 +1,4 @@
-package com.example.myapplication.fragments;
-import static androidx.navigation.fragment.FragmentKt.findNavController;
+package com.example.myapplication.Views.Other;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,9 +12,7 @@ import androidx.fragment.app.Fragment;
 
 
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.NavigationUI;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentProfilBinding;
