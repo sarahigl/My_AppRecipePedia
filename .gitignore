@@ -13,7 +13,8 @@
 .externalNativeBuild
 .cxx
 local.properties
+
 # Docker
 ../.env
 config/firebase-credentials.json
-
+/app/gradle.properties
