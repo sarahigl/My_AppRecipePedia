@@ -14,26 +14,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
+import com.example.myapplication.BuildConfig;
+import com.example.myapplication.Data.Repositories.ReponseIARepository;
 import com.example.myapplication.Model.RequeteIA;
-import com.example.myapplication.R;
 import com.example.myapplication.Utils.AdapterChatMessage;
-import com.example.myapplication.ViewModel.RecetteViewModel;
+import com.example.myapplication.Utils.UtilsApiAI;
 import com.example.myapplication.ViewModel.RequeteIAViewModel;
 import com.example.myapplication.databinding.FragmentChatIABinding;
-import com.example.myapplication.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Objects;
 
 public class ChatIAFragment extends Fragment {
 
     private FragmentChatIABinding binding;
     private RequeteIAViewModel requeteIAViewModel;
     private AdapterChatMessage chatMessageAdapter;
-    private List<RequeteIA> chatMessages = new ArrayList<>();
+    private final List<RequeteIA> chatMessages = new ArrayList<>();
+    private ReponseIARepository reponseIARepository;
     RecyclerView recyclerView;
     EditText inputchat;
 
@@ -57,25 +57,26 @@ public class ChatIAFragment extends Fragment {
         chatMessageAdapter = new AdapterChatMessage(chatMessages);
         recyclerView.setAdapter(chatMessageAdapter);
         binding.sendmessage.setOnClickListener(this::sendMessage);
+
+//        UtilsApiAI utilsApiAI = new UtilsApiAI(BuildConfig.OPENAI_API_KEY);
         return binding.getRoot();
     }
     //logique btn send msg
     public void sendMessage(View view) {
         String date = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-        String message = binding.inputchat.getText().toString();
+        String message = Objects.requireNonNull(binding.inputchat.getText()).toString().trim();
         Boolean status = false;
 
-        //solution temporaire à modifier avec l'id de l'utilisateur connecté
+        //solution temporaire à modifier avec l'id de user logged
         int idUtilisateur = getLoggedInUserId();
-        RequeteIA requeteIA = new RequeteIA(message, date, status, idUtilisateur);
+
         if (message.length() >= 2 && !TextUtils.isEmpty(date)) {
-            chatMessageAdapter.addMessage(requeteIA);
-            //second try
-            requeteIAViewModel.setCorpRequete(message);
+            //faire appel methode asynchrone de l'api ici ?
             binding.inputchat.setText("");
         }else{
             binding.inputchat.setError("Veuillez saisir un message");
         }
+
 
     }
     private int getLoggedInUserId() {
