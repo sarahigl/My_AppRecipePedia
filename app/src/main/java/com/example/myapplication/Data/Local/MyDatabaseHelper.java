@@ -56,7 +56,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Table Utilisateur
-        String createTableUtilisateur = "CREATE TABLE " + tableUtilisateur.TABLE_NAME + " (" +
+        String createTableUtilisateur = "CREATE TABLE IF NOT EXISTS " + tableUtilisateur.TABLE_NAME + " (" +
                 tableUtilisateur.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                 tableUtilisateur.COLUMN_USERNAME + " TEXT NOT NULL, " +
                 tableUtilisateur.COLUMN_EMAIL + " TEXT NOT NULL UNIQUE, " +
@@ -66,7 +66,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
         db.execSQL(createTableUtilisateur);
 
         // Table Requete_IA
-        String createTableRequeteIA = "CREATE TABLE " + tableRequeteIA.TABLE_NAME + " (" +
+        String createTableRequeteIA = "CREATE TABLE IF NOT EXISTS " + tableRequeteIA.TABLE_NAME + " (" +
                 tableRequeteIA.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                 tableRequeteIA.COLUMN_REQUEST + " TEXT NOT NULL, " +
                 tableRequeteIA.COLUMN_DATE + " TEXT NOT NULL, " +
@@ -77,7 +77,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
         db.execSQL(createTableRequeteIA);
 
         // Table Reponse_IA
-        String createTableReponseIA = "CREATE TABLE " + tableReponseIA.TABLE_NAME + " (" +
+        String createTableReponseIA = "CREATE TABLE IF NOT EXISTS " + tableReponseIA.TABLE_NAME + " (" +
                 tableReponseIA.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                 tableReponseIA.COLUMN_RESPONSE + " TEXT NOT NULL, " +
                 tableReponseIA.COLUMN_DATE + " TEXT NOT NULL, " +
@@ -87,7 +87,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
         db.execSQL(createTableReponseIA);
 
         // Table Favoris_IA
-        String createTableFavorisIA = "CREATE TABLE " + tableFavorisIA.TABLE_NAME + " (" +
+        String createTableFavorisIA = "CREATE TABLE IF NOT EXISTS " + tableFavorisIA.TABLE_NAME + " (" +
                 tableFavorisIA.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                 tableFavorisIA.COLUMN_ADD_DATE + " TEXT NOT NULL, " +
                 tableFavorisIA.COLUMN_ID_USER + " INTEGER, " +
@@ -109,7 +109,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
         onCreate(db);
         }
     public Cursor getUserFavorites(int userId) {
-        //cursor => un pointeur qui se déplace à travers les lignes d'un tableau de données, vous permettant de lire les valeurs de chaque colonne pour chaque ligne
+        //cursor => un pointeur qui se déplace à travers les lignes d'un tableau de données,
+        // vous permettant de lire les valeurs de chaque colonne pour chaque ligne
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM Favoris_IA " +
                 "INNER JOIN Reponse_IA ON Favoris_IA.id_reponse_ia = Reponse_IA.id_reponse_ia " +

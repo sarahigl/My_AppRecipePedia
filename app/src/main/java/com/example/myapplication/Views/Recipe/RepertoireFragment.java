@@ -20,7 +20,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.ViewModel.RecetteViewModel;
 import com.example.myapplication.Model.Recette;
 import com.example.myapplication.databinding.FragmentRepertoireBinding;
-import com.example.myapplication.Utils.MyAdapter;
+import com.example.myapplication.Utils.Adapter.MyAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

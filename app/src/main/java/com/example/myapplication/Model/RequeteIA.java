@@ -4,8 +4,6 @@ import okhttp3.Request;
 
 public class RequeteIA {
 
-   private String model;
-    //private Integer maxTokens;
     private int idRequeteIA;
     private String corpRequete;
     private String dateRequete;
@@ -15,16 +13,8 @@ public class RequeteIA {
     public RequeteIA() {
     }
 
-    public String getModel() {
-        return model;
-    }
 
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public RequeteIA(String model, int idRequeteIA, String corpRequete, String dateRequete, Boolean statusRequete) {
-        this.model = model;
+    public RequeteIA(int idRequeteIA, String corpRequete, String dateRequete, Boolean statusRequete) {
         this.idRequeteIA = idRequeteIA;
         this.corpRequete = corpRequete;
         this.dateRequete = dateRequete;

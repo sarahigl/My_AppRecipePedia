@@ -20,12 +20,13 @@ import com.google.firebase.FirebaseApp;
 public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
     ActivityMainBinding binding;
     private NavController navController;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         RecetteViewModel recetteViewModel = new ViewModelProvider(this).get(RecetteViewModel.class);
 
         // Définir l'écouteur de sélection pour le BottomNavigationView
@@ -53,5 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
             return true;
         }
         return false;
+    }
+    public static void main(String[] args) {
     }
 }

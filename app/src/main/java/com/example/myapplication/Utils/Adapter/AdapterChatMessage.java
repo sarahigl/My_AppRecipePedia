@@ -1,4 +1,4 @@
-package com.example.myapplication.Utils;
+package com.example.myapplication.Utils.Adapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,23 +15,11 @@ import java.util.List;
 
 public class AdapterChatMessage extends RecyclerView.Adapter<ViewHolder>{
 
-    private List<RequeteIA> chatMessages;
+    private final List<String> chatMessages;
 
-    public AdapterChatMessage(List<RequeteIA> chatMessages) {
+    public AdapterChatMessage(List<String> chatMessages) {
         this.chatMessages = chatMessages;
     }
-
-    public AdapterChatMessage() {
-    }
-
-    public List<RequeteIA> getChatMessages() {
-        return chatMessages;
-    }
-
-    public void setChatMessages(List<RequeteIA> chatMessages) {
-        this.chatMessages = chatMessages;
-    }
-
 
     @NonNull
     @Override
@@ -44,15 +32,15 @@ public class AdapterChatMessage extends RecyclerView.Adapter<ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d("DEBUG", "Position : " + position);
-        RequeteIA chatMessage = chatMessages.get(position);
-        holder.tvUserMsg.setText(chatMessage.getCorpRequete());
+        String message = chatMessages.get(position);
+        holder.tvUserMsg.setText(message);
     }
 
     @Override
     public int getItemCount() {
         return chatMessages.size();
     }
-    public void addMessage(RequeteIA message) {
+    public void addMessage(String message) {
         chatMessages.add(message);
         notifyItemInserted(chatMessages.size() - 1);
     }
