@@ -1,6 +1,4 @@
-package com.example.myapplication.Model;
-
-import okhttp3.Request;
+package com.example.myapplication.Model.IA;
 
 public class RequeteIA {
 

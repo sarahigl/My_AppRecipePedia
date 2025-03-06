@@ -1,4 +1,4 @@
-package com.example.myapplication.Model.JSONParsing;
+package com.example.myapplication.Model.IA.JSONParsing;
 
 import android.os.Message;
 

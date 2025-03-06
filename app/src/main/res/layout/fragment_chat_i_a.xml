@@ -1,39 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/chat_iaView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="bottom"
     android:orientation="vertical"
     tools:context=".Views.IA.ChatIAFragment">
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvchatUser"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvchatUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            tools:itemCount="1"
-            tools:listitem="@layout/user_msg_item_rv">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvchatIA"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            tools:itemCount="1"
-            tools:listitem="@layout/bot_msg_item_rv" />
-    </LinearLayout>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="10dp"
+        tools:itemCount="1"
+        tools:listitem="@layout/user_msg_item_rv">
+    </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
         android:layout_width="match_parent"

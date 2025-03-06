@@ -1,46 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cvBotMsg"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="bottom|start"
-    android:layout_marginStart="5dp"
-    android:layout_marginTop="7dp"
-    android:layout_marginEnd="10dp"
-    android:layout_marginBottom="7dp"
-    android:backgroundTint="@color/jaunePale"
-    android:elevation="8dp"
-    app:cardCornerRadius="10dp">
+    android:padding="8dp">
 
-    <LinearLayout
-        android:layout_width="300dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvBotMsg"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
-        android:orientation="horizontal"
-        tools:ignore="UseCompoundDrawables">
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/jaunePale"
+        android:elevation="8dp"
+        app:cardCornerRadius="10dp">
 
-        <TextView
-            android:id="@+id/tvBotMsg"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:text="TextView blablablablbllalbalbablabalblal" />
-
-        <ImageView
-            android:id="@+id/ivBotMsg"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
-            app:srcCompat="@drawable/outline_smart_toy_24" />
+            android:orientation="vertical"
+            android:padding="8dp">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvBotMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
 
-</androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/ivBotMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                app:srcCompat="@drawable/outline_smart_toy_24" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

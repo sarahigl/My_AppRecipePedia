@@ -1,6 +1,6 @@
 package com.example.myapplication.Data.Local;
 
-import com.example.myapplication.Model.FavorisIA;
+import com.example.myapplication.Model.IA.FavorisIA;
 
 public interface FavorisIADao {
     long insertFavori(FavorisIA favorisIA);

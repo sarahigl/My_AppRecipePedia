@@ -1,7 +1,7 @@
-package com.example.myapplication.Model.JSONParsing;
+package com.example.myapplication.Model.IA.JSONParsing;
 
 
-import com.example.myapplication.Model.DTO.Message;
+import com.example.myapplication.Model.IA.DTO.Message;
 
 import java.util.List;
 

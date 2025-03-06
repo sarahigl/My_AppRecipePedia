@@ -1,7 +1,5 @@
 package com.example.myapplication.Views.IA;
 
-import static androidx.fragment.app.FragmentManager.TAG;
-
 import android.annotation.SuppressLint;
 import android.icu.text.DateFormat;
 import android.icu.util.Calendar;
@@ -9,7 +7,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,12 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.example.myapplication.Data.Repositories.ReponseIARepository;
-import com.example.myapplication.Model.DTO.Message;
-import com.example.myapplication.Model.JSONParsing.OpenAiReponse;
-import com.example.myapplication.Model.JSONParsing.OpenAiRequete;
-import com.example.myapplication.Model.ReponseIA;
-import com.example.myapplication.Model.RequeteIA;
+import com.example.myapplication.Model.IA.ChatMessage;
+import com.example.myapplication.Model.IA.DTO.Message;
+import com.example.myapplication.Model.IA.JSONParsing.OpenAiReponse;
+import com.example.myapplication.Model.IA.JSONParsing.OpenAiRequete;
 import com.example.myapplication.Utils.API.ApiServiceIA;
 import com.example.myapplication.Utils.Adapter.AdapterChatMessage;
 import com.example.myapplication.Utils.RetrofitClient;
@@ -39,11 +35,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ChatIAFragment extends Fragment {
-
     private FragmentChatIABinding binding;
     private AdapterChatMessage chatMessageAdapter;
     private RequeteIAViewModel requeteIAViewModel;
-    private final List<String> chatMessages = new ArrayList<>();
+    private final List<ChatMessage> chatMessages = new ArrayList<>();
     private ApiServiceIA apiServiceIA;
     RecyclerView recyclerView;
     EditText inputchat;
@@ -58,21 +53,20 @@ public class ChatIAFragment extends Fragment {
         inputchat = binding.inputchat;
         requeteIAViewModel = new ViewModelProvider(requireActivity()).get(RequeteIAViewModel.class);
 
-        //Initialisation de RecyclerView et du gestionnaire de disposition
-        // Obtient la référence au RecyclerView à partir du layout lié
-        recyclerView = binding.rvchatUser;
-        //getActivity est l'équivalent de class.this
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        //Initialisation de RecyclerView et du gestionnaire de disposition// Obtient la référence au RecyclerView à partir du layout lié
+        recyclerView= binding.rvchatUser;
+        LinearLayoutManager linearLayoutManagerUser = new LinearLayoutManager(getActivity());//getActivity est l'équivalent de class.this
+        recyclerView.setLayoutManager(linearLayoutManagerUser);
 
         //api service
         apiServiceIA = RetrofitClient.getApiServiceIA();
 
-        // Initialize the adapter
-        chatMessageAdapter = new AdapterChatMessage(chatMessages);
+        // Initialize the adapter for user msg
+        chatMessageAdapter= new AdapterChatMessage(chatMessages);
         recyclerView.setAdapter(chatMessageAdapter);
-        binding.sendmessage.setOnClickListener(this::sendMessage);
 
+        //send function
+        binding.sendmessage.setOnClickListener(this::sendMessage);
 
         return binding.getRoot();
     }
@@ -86,7 +80,7 @@ public class ChatIAFragment extends Fragment {
 
 
         if (message.length() >= 2 && !TextUtils.isEmpty(date)) {
-            chatMessageAdapter.addMessage(message);
+            chatMessageAdapter.addMessage(new ChatMessage(message, ChatMessage.TYPE_USER));
             binding.inputchat.setText("");
 
             //creation objet requeteOpenIA qui sera envoyé à openAI api
@@ -105,6 +99,7 @@ public class ChatIAFragment extends Fragment {
                     if(response.isSuccessful() && response.body() != null){
                         OpenAiReponse reponse = response.body();
                         Log.d("D/ChatIAFragment", "ReponseIA : " + reponse.getMessage());
+                        chatMessageAdapter.addMessage(new ChatMessage(reponse.getMessage(), ChatMessage.TYPE_BOT));
                     } else {
                         Log.e("ChatIAFragment", "API call failed with code: " + response.code());
                     }
@@ -113,12 +108,10 @@ public class ChatIAFragment extends Fragment {
                 public void onFailure(Call<OpenAiReponse> call, Throwable t) {
                     Log.e("E/ChatIAFragment", "API call failed", t);
                 }
-
             });
         }else{
             binding.inputchat.setError("Veuillez saisir un message");
         }
-
     }
     private int getLoggedInUserId() {
         return 1; // Temporaire

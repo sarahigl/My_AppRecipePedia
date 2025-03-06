@@ -1,4 +1,4 @@
-package com.example.myapplication.Model;
+package com.example.myapplication.Model.IA;
 
 public class FavorisIA {
     private int idFavorisIA;

@@ -1,4 +1,4 @@
-package com.example.myapplication.Model.DTO;
+package com.example.myapplication.Model.IA.DTO;
 
 public class Message {
     private String role;
