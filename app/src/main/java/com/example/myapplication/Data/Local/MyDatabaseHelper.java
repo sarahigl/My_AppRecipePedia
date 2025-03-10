@@ -1,11 +1,16 @@
 package com.example.myapplication.Data.Local;
 
+import static com.example.myapplication.Data.Local.MyDatabaseHelper.tableFavorisIA.COLUMN_ADD_DATE;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.Nullable;
+
+import java.sql.Statement;
 
 
 public class MyDatabaseHelper extends SQLiteOpenHelper{
@@ -89,7 +94,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
         // Table Favoris_IA
         String createTableFavorisIA = "CREATE TABLE IF NOT EXISTS " + tableFavorisIA.TABLE_NAME + " (" +
                 tableFavorisIA.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                tableFavorisIA.COLUMN_ADD_DATE + " TEXT NOT NULL, " +
+                COLUMN_ADD_DATE + " TEXT NOT NULL, " +
                 tableFavorisIA.COLUMN_ID_USER + " INTEGER, " +
                 tableFavorisIA.COLUMN_ID_RESPONSE_IA + " INTEGER, " +
                 "FOREIGN KEY (" + tableFavorisIA.COLUMN_ID_USER + ") " +
@@ -99,6 +104,26 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
         db.execSQL(createTableFavorisIA);
     }
 
+    public long insertAiResponse(String response, String date, int idUser){
+        String sql = "INSERT INTO " + tableFavorisIA.TABLE_NAME + " ( " + COLUMN_ADD_DATE + ", " + tableFavorisIA.COLUMN_ID_USER + " ,"+ tableFavorisIA.COLUMN_ID_RESPONSE_IA + ") VALUES ( ?, ?, ? );";
+        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteStatement statement = db.compileStatement(sql);
+        db.beginTransactionNonExclusive();
+        try {
+            statement.bindString(1, date);
+            statement.bindLong(2, idUser);
+            statement.bindString(3, response);
+            //afin de notifier l'utilisateur que l'ajout est fait avec succès ou non
+            long rowId = statement.executeInsert();
+            db.setTransactionSuccessful();
+            return rowId;
+        } finally {
+            db.endTransaction();
+            statement.close();
+            db.close();
+        }
+
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {

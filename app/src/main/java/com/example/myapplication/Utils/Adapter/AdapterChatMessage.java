@@ -4,26 +4,38 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Model.IA.ChatMessage;
+import com.example.myapplication.R;
 import com.example.myapplication.databinding.BotMsgItemRvBinding;
 import com.example.myapplication.databinding.UserMsgItemRvBinding;
 
 import java.util.List;
 
 public class AdapterChatMessage extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-
     private final List<ChatMessage> chatMessages;
+
+    ///////////////////////FAVORISATION////////////////////////////////////////////
+    public interface OnFavClickListener {
+        void onFavClick(String message);
+    }
+    OnFavClickListener onFavClickListener;
+    // fonction qui sera appelée lorsque l'utilisateur clique sur le bouton "Favoris"
+    public void setOnFavClickListener(OnFavClickListener listener) {
+        this.onFavClickListener = listener;
+    }
+    ///////////////////////FAVORISATION FIN////////////////////////////////////////////
 
     public AdapterChatMessage(List<ChatMessage> chatMessages) {
         this.chatMessages = chatMessages;
     }
 
-    //tells the RecyclerView what type of view to use for a given item in the list
+    //permet au recyclerview de savoir quel type de vue utiliser pour un élément donné dans la liste(jaune ou blanc selon le type)
     @Override
     public int getItemViewType(int position) {
         return chatMessages.get(position).getMessageType();
@@ -37,7 +49,7 @@ public class AdapterChatMessage extends RecyclerView.Adapter<RecyclerView.ViewHo
             return new UserViewHolder(binding);
         }else{
             BotMsgItemRvBinding bindingBot = BotMsgItemRvBinding.inflate(LayoutInflater.from(parent.getContext()));
-            return new BotViewHolder(bindingBot);
+            return new BotViewHolder(bindingBot, this);
         }
 
     }
@@ -61,6 +73,8 @@ public class AdapterChatMessage extends RecyclerView.Adapter<RecyclerView.ViewHo
         chatMessages.add(chatMessage);
         notifyItemInserted(chatMessages.size() - 1);
     }
+
+
 }
 class UserViewHolder extends RecyclerView.ViewHolder {
     UserMsgItemRvBinding binding;
@@ -80,14 +94,33 @@ class UserViewHolder extends RecyclerView.ViewHolder {
 class BotViewHolder extends RecyclerView.ViewHolder {
     BotMsgItemRvBinding binding;
     TextView tvBotMsg;
+    ImageButton imageBtnFav;
+    //favorisation
+    private AdapterChatMessage adapter;
+    private boolean isFavorite = false;
 
-    public BotViewHolder(BotMsgItemRvBinding binding) {
+    public BotViewHolder(BotMsgItemRvBinding binding, AdapterChatMessage adapter) {
         super(binding.getRoot());
         this.binding = binding;
         tvBotMsg = binding.tvBotMsg;
+        //favorisation
+        imageBtnFav = binding.imageBtnFav;
+        this.adapter = adapter;
     }
 
     public void bind(ChatMessage chatMessage) {
         tvBotMsg.setText(chatMessage.getMessage());
+        //favorisation//
+        imageBtnFav.setOnClickListener(view -> {
+            if (adapter.onFavClickListener != null) {
+                adapter.onFavClickListener.onFavClick(chatMessage.getMessage());
+                isFavorite = !isFavorite;
+                if (isFavorite) {
+                    imageBtnFav.setImageResource(R.drawable.ic_heart_filled);
+                } else {
+                    imageBtnFav.setImageResource(R.drawable.ic_heart_outlined);
+                }
+            }
+        });
     }
 }
