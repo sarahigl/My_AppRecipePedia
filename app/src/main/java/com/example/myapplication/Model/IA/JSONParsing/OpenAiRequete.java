@@ -1,20 +1,20 @@
 package com.example.myapplication.Model.IA.JSONParsing;
 
 
-import com.example.myapplication.Model.IA.DTO.Message;
+import com.example.myapplication.Model.IA.DTO.MessageDTO;
 
 import java.util.List;
 
 public class OpenAiRequete {
     private String model;
-    private List<Message> messages;
+    private List<MessageDTO> messages;
 
     public OpenAiRequete() {
     }
 
-    public OpenAiRequete(String model, List<Message> messages) {
+    public OpenAiRequete(String model, List<MessageDTO> messageDTOS) {
         this.model = model;
-        this.messages = messages;
+        this.messages = messageDTOS;
     }
 
     public String getModel() {
@@ -25,11 +25,11 @@ public class OpenAiRequete {
         this.model = model;
     }
 
-    public List<Message> getMessages() {
+    public List<MessageDTO> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
+    public void setMessages(List<MessageDTO> messageDTOS) {
+        this.messages = messageDTOS;
     }
 }

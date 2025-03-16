@@ -31,17 +31,6 @@
                 android:textColorLink="@color/jaune"
                 android:textSize="20sp" />
 
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="6"
-                android:backgroundTint="#00FFFFFF"
-                android:src="@drawable/exportation2"
-                app:tint="#9E000000" />
-
         </LinearLayout>
 
     </FrameLayout>

@@ -49,12 +49,12 @@ public class ProfilFragment extends Fragment {
                 navController.navigate(R.id.action_profilFragment_to_parametreFragment2);
             }
         });
-        binding.ibFavoris.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_profilFragment_to_favorisfragment);
-            }
-        });
+//        binding.ibFavoris.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                navController.navigate(R.id.action_profilFragment_to_favorisfragment);
+//            }
+//        });
     }
     @Override //vide le cache mémoire
     public void onDestroy() {

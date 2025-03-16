@@ -1,11 +1,11 @@
 package com.example.myapplication.Model.IA.DTO;
 
-public class Message {
+public class MessageDTO {
     private String role;
     private String content;
 
     // Constructor
-    public Message(String role, String content) {
+    public MessageDTO(String role, String content) {
         this.role = role;
         this.content = content;
     }

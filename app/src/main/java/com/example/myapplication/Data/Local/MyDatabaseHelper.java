@@ -1,7 +1,9 @@
 package com.example.myapplication.Data.Local;
 
-import static com.example.myapplication.Data.Local.MyDatabaseHelper.tableFavorisIA.COLUMN_ADD_DATE;
+import static com.example.myapplication.Data.Local.MyDatabaseHelper.tableMessage.COLUMN_MESSAGE;
 
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,13 +12,15 @@ import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.Nullable;
 
-import java.sql.Statement;
+import com.example.myapplication.Model.IA.Message;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper{
 
     private Context context;
-    private static final String DATABASE_NAME = "recipepedia.db";
+    private static final String DATABASE_NAME = "assistantRecipepedia.db";
     private static final int DATABASE_VERSION = 1;
 
 
@@ -29,29 +33,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
         public static final String COLUMN_NAME = "prenom_utilisateur";
         public static final String COLUMN_PASSWORD = "mdp_utilisateur";
     }
-    private static final class tableRequeteIA {
-        public static final String TABLE_NAME = "Requete_IA";
-        public static final String COLUMN_ID = "id_requete_ia";
-        public static final String COLUMN_REQUEST = "corp_requete";
-        public static final String COLUMN_DATE = "date_requete";
-        public static final String COLUMN_STATUS = "status_requete";
+    public static final class tableMessage {
+        public static final String TABLE_NAME = "Message";
+        public static final String COLUMN_ID = "id_message";
+        public static final String COLUMN_MESSAGE = "contenu_message";
+        public static final String COLUMN_DATE = "date_message";
+        public static final String COLUMN_TYPE_MESSAGE = "type_message";
         public static final String COLUMN_ID_USER = "id_utilisateur";
     }
-    public static final class tableReponseIA {
-        public static final String TABLE_NAME = "Reponse_IA";
-        public static final String COLUMN_ID = "id_reponse_ia";
-        public static final String COLUMN_RESPONSE = "corp_reponse";
-        public static final String COLUMN_DATE = "date_reponse";
-        public static final String COLUMN_ID_REQUEST_IA = "id_requete_ia";
-    }
-    public static final class tableFavorisIA {
-        public static final String TABLE_NAME = "Favoris_IA";
-        public static final String COLUMN_ID = "id_favoris_ia";
-        public static final String COLUMN_ADD_DATE = "date_ajout";
-        public static final String COLUMN_ID_USER = "id_utilisateur";
-        public static final String COLUMN_ID_RESPONSE_IA = "id_reponse_ia";
-    }
-
 
     public MyDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -60,7 +49,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Table Utilisateur
         String createTableUtilisateur = "CREATE TABLE IF NOT EXISTS " + tableUtilisateur.TABLE_NAME + " (" +
                 tableUtilisateur.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                 tableUtilisateur.COLUMN_USERNAME + " TEXT NOT NULL, " +
@@ -70,49 +58,28 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
                 tableUtilisateur.COLUMN_PASSWORD + " TEXT NOT NULL);";
         db.execSQL(createTableUtilisateur);
 
-        // Table Requete_IA
-        String createTableRequeteIA = "CREATE TABLE IF NOT EXISTS " + tableRequeteIA.TABLE_NAME + " (" +
-                tableRequeteIA.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                tableRequeteIA.COLUMN_REQUEST + " TEXT NOT NULL, " +
-                tableRequeteIA.COLUMN_DATE + " TEXT NOT NULL, " +
-                tableRequeteIA.COLUMN_STATUS + " TEXT, " +
-                tableRequeteIA.COLUMN_ID_USER + " INTEGER, " +
-                "FOREIGN KEY (" + tableRequeteIA.COLUMN_ID_USER + ") " +
+        String createTableMessage = "CREATE TABLE IF NOT EXISTS " + tableMessage.TABLE_NAME + " (" +
+                tableMessage.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                COLUMN_MESSAGE + " TEXT NOT NULL, " +
+                tableMessage.COLUMN_DATE + " TEXT NOT NULL, " + //SQLite utilise le type TEXT pour stocker les dates
+                tableMessage.COLUMN_TYPE_MESSAGE + " INTEGER NOT NULL, " +
+                tableMessage.COLUMN_ID_USER + " INTEGER, " +
+                "FOREIGN KEY (" + tableMessage.COLUMN_ID_USER + ") " +
                 "REFERENCES " + tableUtilisateur.TABLE_NAME + " (" + tableUtilisateur.COLUMN_ID + "));";
-        db.execSQL(createTableRequeteIA);
-
-        // Table Reponse_IA
-        String createTableReponseIA = "CREATE TABLE IF NOT EXISTS " + tableReponseIA.TABLE_NAME + " (" +
-                tableReponseIA.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                tableReponseIA.COLUMN_RESPONSE + " TEXT NOT NULL, " +
-                tableReponseIA.COLUMN_DATE + " TEXT NOT NULL, " +
-                tableReponseIA.COLUMN_ID_REQUEST_IA + " INTEGER, " +
-                "FOREIGN KEY (" + tableReponseIA.COLUMN_ID_REQUEST_IA + ") " +
-                "REFERENCES " + tableRequeteIA.TABLE_NAME + " (" + tableRequeteIA.COLUMN_ID + ") ON DELETE CASCADE);";
-        db.execSQL(createTableReponseIA);
-
-        // Table Favoris_IA
-        String createTableFavorisIA = "CREATE TABLE IF NOT EXISTS " + tableFavorisIA.TABLE_NAME + " (" +
-                tableFavorisIA.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                COLUMN_ADD_DATE + " TEXT NOT NULL, " +
-                tableFavorisIA.COLUMN_ID_USER + " INTEGER, " +
-                tableFavorisIA.COLUMN_ID_RESPONSE_IA + " INTEGER, " +
-                "FOREIGN KEY (" + tableFavorisIA.COLUMN_ID_USER + ") " +
-                "REFERENCES " + tableUtilisateur.TABLE_NAME + " (" + tableUtilisateur.COLUMN_ID + "), " +
-                "FOREIGN KEY (" + tableFavorisIA.COLUMN_ID_RESPONSE_IA + ") " +
-                "REFERENCES " + tableReponseIA.TABLE_NAME + " (" + tableReponseIA.COLUMN_ID + "));";
-        db.execSQL(createTableFavorisIA);
+        db.execSQL(createTableMessage);
     }
-
-    public long insertAiResponse(String response, String date, int idUser){
-        String sql = "INSERT INTO " + tableFavorisIA.TABLE_NAME + " ( " + COLUMN_ADD_DATE + ", " + tableFavorisIA.COLUMN_ID_USER + " ,"+ tableFavorisIA.COLUMN_ID_RESPONSE_IA + ") VALUES ( ?, ?, ? );";
+//V1 application le type de message sera toujours le meme => type = 0 (bot assistant IA)
+    public long insertMessageData(String message, String date, int type, int idUser){
+        String sql = "INSERT INTO " + tableMessage.TABLE_NAME + " ( " + COLUMN_MESSAGE + ", " + tableMessage.COLUMN_DATE +", " + tableMessage.COLUMN_TYPE_MESSAGE +", "+ tableMessage.COLUMN_ID_USER +") VALUES ( ?, ?, ?, ? );";
         SQLiteDatabase db = this.getWritableDatabase();
         SQLiteStatement statement = db.compileStatement(sql);
         db.beginTransactionNonExclusive();
         try {
-            statement.bindString(1, date);
-            statement.bindLong(2, idUser);
-            statement.bindString(3, response);
+            statement.bindString(1, message);
+            statement.bindString(2, date);
+            statement.bindLong(3, type);
+            statement.bindLong(4, idUser);
+
             //afin de notifier l'utilisateur que l'ajout est fait avec succès ou non
             long rowId = statement.executeInsert();
             db.setTransactionSuccessful();
@@ -122,26 +89,42 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
             statement.close();
             db.close();
         }
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + tableUtilisateur.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + tableRequeteIA.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + tableReponseIA.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + tableFavorisIA.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + tableMessage.TABLE_NAME);
         onCreate(db);
         }
-    public Cursor getUserFavorites(int userId) {
-        //cursor => un pointeur qui se déplace à travers les lignes d'un tableau de données,
-        // vous permettant de lire les valeurs de chaque colonne pour chaque ligne
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM Favoris_IA " +
-                "INNER JOIN Reponse_IA ON Favoris_IA.id_reponse_ia = Reponse_IA.id_reponse_ia " +
-                "WHERE Favoris_IA.id_utilisateur = ?";
-        // Exécutez la requête et obtenez le Cursor
-        return db.rawQuery(query, new String[]{String.valueOf(userId)});
-    }
 
+    public List<Message> getUserFavorites(int i) {
+        List<Message> favorites = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            String query = "SELECT " + tableMessage.COLUMN_MESSAGE + ", " + tableMessage.COLUMN_DATE +
+                    " FROM " + tableMessage.TABLE_NAME +
+                    " WHERE " + tableMessage.COLUMN_TYPE_MESSAGE + " = ? AND " + tableMessage.COLUMN_ID_USER + " = ?";
+
+            cursor = db.rawQuery(query, new String[]{"0", String.valueOf(i)});
+
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    @SuppressLint("Range") String messageText = cursor.getString(cursor.getColumnIndex(tableMessage.COLUMN_MESSAGE));
+                    @SuppressLint("Range") String messageDate = cursor.getString(cursor.getColumnIndex(tableMessage.COLUMN_DATE));
+
+                    Message message = new Message(messageText, messageDate);
+                    favorites.add(message);
+                } while (cursor.moveToNext());
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return favorites;
+
+    }
 }

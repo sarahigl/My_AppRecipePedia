@@ -9,24 +9,23 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.text.TextUtils;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.myapplication.Data.Local.MyDatabaseHelper;
 import com.example.myapplication.Model.IA.ChatMessage;
-import com.example.myapplication.Model.IA.DTO.Message;
+import com.example.myapplication.Model.IA.DTO.MessageDTO;
 import com.example.myapplication.Model.IA.JSONParsing.OpenAiReponse;
 import com.example.myapplication.Model.IA.JSONParsing.OpenAiRequete;
 import com.example.myapplication.Utils.API.ApiServiceIA;
 import com.example.myapplication.Utils.Adapter.AdapterChatMessage;
 import com.example.myapplication.Utils.RetrofitClient;
-import com.example.myapplication.ViewModel.RequeteIAViewModel;
+import com.example.myapplication.ViewModel.ReponseIAViewModel;
 import com.example.myapplication.databinding.FragmentChatIABinding;
 
 import java.util.ArrayList;
@@ -40,7 +39,7 @@ import retrofit2.Response;
 public class ChatIAFragment extends Fragment implements AdapterChatMessage.OnFavClickListener{
     private FragmentChatIABinding binding;
     private AdapterChatMessage chatMessageAdapter;
-    private RequeteIAViewModel requeteIAViewModel;
+    private ReponseIAViewModel requeteIAViewModel;
     private final List<ChatMessage> chatMessages = new ArrayList<>();
     private ApiServiceIA apiServiceIA;
     RecyclerView recyclerView;
@@ -54,7 +53,7 @@ public class ChatIAFragment extends Fragment implements AdapterChatMessage.OnFav
         Log.d("ChatIAFragment", "onCreateView called");
         binding = FragmentChatIABinding.inflate(inflater, container, false);
         inputchat = binding.inputchat;
-        requeteIAViewModel = new ViewModelProvider(requireActivity()).get(RequeteIAViewModel.class);
+        requeteIAViewModel = new ViewModelProvider(requireActivity()).get(ReponseIAViewModel.class);
         //Initialisation de RecyclerView et du gestionnaire de disposition// Obtient la référence au RecyclerView à partir du layout lié
         recyclerView= binding.rvchatUser;
         LinearLayoutManager linearLayoutManagerUser = new LinearLayoutManager(getActivity());//getActivity est l'équivalent de class.this
@@ -72,11 +71,11 @@ public class ChatIAFragment extends Fragment implements AdapterChatMessage.OnFav
         return binding.getRoot();
     }
     ///////////////////////FAVORISATION////////////////////////////////////////////
-    public void addFavoris(String aiReponse){
+    public void addFavoris(String msg){
         String date = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
         int idUtilisateur = getLoggedInUserId();
         MyDatabaseHelper databaseHelper = new MyDatabaseHelper(getContext());
-        long rowId = databaseHelper.insertAiResponse(aiReponse, date, idUtilisateur);
+        long rowId = databaseHelper.insertMessageData(msg, date,0, idUtilisateur);
         if(rowId == -1){
             Toast.makeText(getContext(), "Erreur lors de l'ajout des favoris", Toast.LENGTH_SHORT).show();
         }else {
@@ -140,12 +139,12 @@ public class ChatIAFragment extends Fragment implements AdapterChatMessage.OnFav
         //Boolean status = false;
         //teporary solution to modifify later with id loggged user
         //int idUtilisateur = getLoggedInUserId();
-        //empeche les messages vides
+        //empêche les messages vides
         if (message.length() < 2) {
             binding.inputchat.setError("Veuillez saisir un message de plus de 2 caractères");
             return;
         }
-        //empeche la surchage
+        //empêche la surchage
         if(message.length()>500){
             binding.inputchat.setError("Message trop long (max 500 caractères)");
             return;
@@ -159,10 +158,10 @@ public class ChatIAFragment extends Fragment implements AdapterChatMessage.OnFav
         binding.inputchat.setText("");
 
         //creation objet requeteOpenIA qui sera envoyé à openAI api
-        List<Message> messages = new ArrayList<>();
-        messages.add(new Message("system", "You are an expert in cooking."));
-        messages.add(new Message("user", message));
-        OpenAiRequete openAiRequete = new OpenAiRequete("gpt-4o-mini", messages);
+        List<MessageDTO> messagesDTO = new ArrayList<>();
+        messagesDTO.add(new MessageDTO("system", "Tu es un assistant spécialisé en cuisine. Tu réponds uniquement aux questions liées à la cuisine, aux recettes, aux ingrédients et à la préparation des repas. Si une demande ne concerne pas la cuisine, tu dois répondre : 'Je suis un assistant culinaire et je ne peux répondre qu'à des questions sur la cuisine.'"));//ajouter la limite de charactere pour la recette et la preparation
+        messagesDTO.add(new MessageDTO("user", message));
+        OpenAiRequete openAiRequete = new OpenAiRequete("gpt-4o-mini", messagesDTO);
 
         //envoyer la requete à l'API
         makeApiCall(openAiRequete);
