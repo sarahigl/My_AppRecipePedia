@@ -25,7 +25,7 @@ import com.example.myapplication.Model.IA.JSONParsing.OpenAiRequete;
 import com.example.myapplication.Utils.API.ApiServiceIA;
 import com.example.myapplication.Utils.Adapter.AdapterChatMessage;
 import com.example.myapplication.Utils.RetrofitClient;
-import com.example.myapplication.ViewModel.ReponseIAViewModel;
+import com.example.myapplication.ViewModel.ChatIAViewModel;
 import com.example.myapplication.databinding.FragmentChatIABinding;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ import retrofit2.Response;
 public class ChatIAFragment extends Fragment implements AdapterChatMessage.OnFavClickListener{
     private FragmentChatIABinding binding;
     private AdapterChatMessage chatMessageAdapter;
-    private ReponseIAViewModel requeteIAViewModel;
+    private ChatIAViewModel requeteIAViewModel;
     private final List<ChatMessage> chatMessages = new ArrayList<>();
     private ApiServiceIA apiServiceIA;
     RecyclerView recyclerView;
@@ -53,7 +53,7 @@ public class ChatIAFragment extends Fragment implements AdapterChatMessage.OnFav
         Log.d("ChatIAFragment", "onCreateView called");
         binding = FragmentChatIABinding.inflate(inflater, container, false);
         inputchat = binding.inputchat;
-        requeteIAViewModel = new ViewModelProvider(requireActivity()).get(ReponseIAViewModel.class);
+        requeteIAViewModel = new ViewModelProvider(requireActivity()).get(ChatIAViewModel.class);
         //Initialisation de RecyclerView et du gestionnaire de disposition// Obtient la référence au RecyclerView à partir du layout lié
         recyclerView= binding.rvchatUser;
         LinearLayoutManager linearLayoutManagerUser = new LinearLayoutManager(getActivity());//getActivity est l'équivalent de class.this

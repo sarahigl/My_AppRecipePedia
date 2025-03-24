@@ -6,14 +6,8 @@ public class Message {
     private String date;
     private int type;
     private int idUser;
+    private String title;
 
-    public int getIdMessage() {
-        return idMessage;
-    }
-
-    public void setIdMessage(int idMessage) {
-        this.idMessage = idMessage;
-    }
 
     public String getMessage() {
         return message;
@@ -23,28 +17,16 @@ public class Message {
         this.message = message;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
 
     public int getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public String getTitle() {
+        return title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
     }
     public Message() {
     }

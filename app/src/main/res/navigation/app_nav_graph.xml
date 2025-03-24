@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_navigation_home_to_favorisIAFragment"
             app:destination="@id/favorisIAFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_favorisIADetailsFragment"
+            app:destination="@id/favorisIADetailsFragment" />
     </fragment>
 
     <fragment
@@ -99,5 +102,14 @@
         <action
             android:id="@+id/action_favorisIAFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/favorisIADetailsFragment"
+        android:name="com.example.myapplication.Views.IA.FavorisIADetailsFragment"
+        android:label="fragment_favoris_i_a_details"
+        tools:layout="@layout/fragment_favoris_i_a_details" >
+        <action
+            android:id="@+id/action_favorisIADetailsFragment_to_favorisIAFragment"
+            app:destination="@id/favorisIAFragment" />
     </fragment>
 </navigation>
