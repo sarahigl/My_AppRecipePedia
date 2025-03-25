@@ -2,7 +2,6 @@ package com.example.myapplication.Utils.Adapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -10,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.Model.IA.ChatMessage;
+import com.example.myapplication.Model.IA.Message;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.BotMsgItemRvBinding;
 import com.example.myapplication.databinding.UserMsgItemRvBinding;
@@ -18,7 +17,7 @@ import com.example.myapplication.databinding.UserMsgItemRvBinding;
 import java.util.List;
 
 public class AdapterChatMessage extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    private final List<ChatMessage> chatMessages;
+    private final List<Message> chatMessages;
 
     ///////////////////////FAVORISATION////////////////////////////////////////////
     public interface OnFavClickListener {
@@ -31,20 +30,20 @@ public class AdapterChatMessage extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
     ///////////////////////FAVORISATION FIN////////////////////////////////////////////
 
-    public AdapterChatMessage(List<ChatMessage> chatMessages) {
+    public AdapterChatMessage(List<Message> chatMessages) {
         this.chatMessages = chatMessages;
     }
 
     //permet au recyclerview de savoir quel type de vue utiliser pour un élément donné dans la liste(jaune ou blanc selon le type)
     @Override
     public int getItemViewType(int position) {
-        return chatMessages.get(position).getMessageType();
+        return chatMessages.get(position).getType();
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if(viewType == ChatMessage.TYPE_USER){
+        if(viewType == Message.TYPE_USER){
             UserMsgItemRvBinding binding = UserMsgItemRvBinding.inflate(LayoutInflater.from(parent.getContext()));
             return new UserViewHolder(binding);
         }else{
@@ -57,7 +56,7 @@ public class AdapterChatMessage extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Log.d("DEBUG", "Position : " + position);
-        ChatMessage chatMessage = chatMessages.get(position);
+        Message chatMessage = chatMessages.get(position);
         if (holder instanceof UserViewHolder) {
             ((UserViewHolder) holder).bind(chatMessage);
         } else if (holder instanceof BotViewHolder) {
@@ -69,7 +68,7 @@ public class AdapterChatMessage extends RecyclerView.Adapter<RecyclerView.ViewHo
     public int getItemCount() {
         return chatMessages.size();
     }
-    public void addMessage(ChatMessage chatMessage) {
+    public void addMessage(Message chatMessage) {
         chatMessages.add(chatMessage);
         notifyItemInserted(chatMessages.size() - 1);
     }
@@ -87,7 +86,7 @@ class UserViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void bind(ChatMessage chatMessage) {
+    public void bind(Message chatMessage) {
         tvUserMsg.setText(chatMessage.getMessage());
     }
 }
@@ -108,7 +107,7 @@ class BotViewHolder extends RecyclerView.ViewHolder {
         this.adapter = adapter;
     }
 
-    public void bind(ChatMessage chatMessage) {
+    public void bind(Message chatMessage) {
         tvBotMsg.setText(chatMessage.getMessage());
         //favorisation//
         imageBtnFav.setOnClickListener(view -> {

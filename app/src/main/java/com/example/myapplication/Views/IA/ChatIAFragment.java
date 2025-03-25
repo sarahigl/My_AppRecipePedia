@@ -18,10 +18,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.myapplication.Data.Local.MyDatabaseHelper;
-import com.example.myapplication.Model.IA.ChatMessage;
 import com.example.myapplication.Model.IA.DTO.MessageDTO;
 import com.example.myapplication.Model.IA.JSONParsing.OpenAiReponse;
 import com.example.myapplication.Model.IA.JSONParsing.OpenAiRequete;
+import com.example.myapplication.Model.IA.Message;
 import com.example.myapplication.Utils.API.ApiServiceIA;
 import com.example.myapplication.Utils.Adapter.AdapterChatMessage;
 import com.example.myapplication.Utils.RetrofitClient;
@@ -40,7 +40,7 @@ public class ChatIAFragment extends Fragment implements AdapterChatMessage.OnFav
     private FragmentChatIABinding binding;
     private AdapterChatMessage chatMessageAdapter;
     private ChatIAViewModel requeteIAViewModel;
-    private final List<ChatMessage> chatMessages = new ArrayList<>();
+    private final List<Message> chatMessages = new ArrayList<>();
     private ApiServiceIA apiServiceIA;
     RecyclerView recyclerView;
     EditText inputchat;
@@ -56,7 +56,7 @@ public class ChatIAFragment extends Fragment implements AdapterChatMessage.OnFav
         requeteIAViewModel = new ViewModelProvider(requireActivity()).get(ChatIAViewModel.class);
         //Initialisation de RecyclerView et du gestionnaire de disposition// Obtient la référence au RecyclerView à partir du layout lié
         recyclerView= binding.rvchatUser;
-        LinearLayoutManager linearLayoutManagerUser = new LinearLayoutManager(getActivity());//getActivity est l'équivalent de class.this
+        LinearLayoutManager linearLayoutManagerUser = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManagerUser);
         //api service
         apiServiceIA = RetrofitClient.getApiServiceIA();
@@ -87,7 +87,7 @@ public class ChatIAFragment extends Fragment implements AdapterChatMessage.OnFav
         Log.d("ChatIAFragment", "onFavClick: " + message);
         addFavoris(message);
     }
-    ///////////////////////FAVORISATION////////////////////////////////////////////
+    ///////////////////////FAVORISATION FIN////////////////////////////////////////////
     public void makeApiCall(OpenAiRequete openAiRequete){
         //API call
         //Log.d("ChatIAFragment", "Making API call...");
@@ -103,7 +103,7 @@ public class ChatIAFragment extends Fragment implements AdapterChatMessage.OnFav
                     botMessage = botMessage.replaceAll("[^a-zA-Z0-9\\s.,?!'()àâäéèêëîïôöùûüçœŒ-]", "");
                     botMessage = botMessage.trim();
                     //Log.d("D/ChatIAFragment", "ReponseIA : " + reponse.getMessage());
-                    chatMessageAdapter.addMessage(new ChatMessage(botMessage, ChatMessage.TYPE_BOT));
+                    chatMessageAdapter.addMessage(new Message(botMessage, Message.TYPE_BOT));
                 } else {
                     //Log.e("ChatIAFragment", "API call failed with code: " + response.code());
                     switch (response.code()) {
@@ -128,7 +128,7 @@ public class ChatIAFragment extends Fragment implements AdapterChatMessage.OnFav
                 Toast.makeText(getContext(), "Erreur de connexion. Veuillez vérifier votre connexion Internet ou réessayer plus tard.", Toast.LENGTH_LONG).show();
                 binding.inputchat.setText("");
                 //affichage d'un message d'erreur dans la discussion
-                chatMessageAdapter.addMessage(new ChatMessage("Erreur de connexion", ChatMessage.TYPE_BOT));
+                chatMessageAdapter.addMessage(new Message("Erreur de connexion", Message.TYPE_BOT));
             }
         });
 
@@ -154,7 +154,7 @@ public class ChatIAFragment extends Fragment implements AdapterChatMessage.OnFav
         if (!message.matches(regex)) {
             message = message.replaceAll("[^a-zA-Z0-9\\s.,?!'()àâäéèêëîïôöùûüçœŒ-]", "");
         }
-        chatMessageAdapter.addMessage(new ChatMessage(message, ChatMessage.TYPE_USER));
+        chatMessageAdapter.addMessage(new Message(message, Message.TYPE_USER));
         binding.inputchat.setText("");
 
         //creation objet requeteOpenIA qui sera envoyé à openAI api

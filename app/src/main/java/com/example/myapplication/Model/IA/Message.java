@@ -1,6 +1,9 @@
 package com.example.myapplication.Model.IA;
 
 public class Message {
+    public static final int TYPE_USER = 0;
+    public static final int TYPE_BOT = 1;
+
     private int idMessage;
     private String message;
     private String date;
@@ -8,6 +11,13 @@ public class Message {
     private int idUser;
     private String title;
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public String getMessage() {
         return message;
@@ -28,18 +38,14 @@ public class Message {
     public void setTitle(String title) {
         this.title = title;
     }
-    public Message() {
-    }
-    public Message(String message, String date, int type, int idUser) {
-        this.message = message;
-        this.date = date;
-        this.type = type;
-        this.idUser = idUser;
 
-    }
     public Message(String message, String date) {
         this.message = message;
         this.date = date;
+    }
+    public Message(String message, int type) {
+        this.message = message;
+        this.type = type;
     }
 
 }
