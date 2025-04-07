@@ -66,7 +66,10 @@ dependencies {
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    //Pour simuler des objets
+    testImplementation ("org.mockito:mockito-core:5.2.0")
+    //Pour simuler un serveur HTTP local
+    testImplementation ("com.squareup.okhttp3:mockwebserver:4.10.0")
     implementation ("com.github.bumptech.glide:glide:4.14.2")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.14.2")
     implementation ("com.google.android.material:material:1.12.0")
