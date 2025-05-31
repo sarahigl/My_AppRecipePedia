@@ -50,7 +50,6 @@ public class AdapterChatMessage extends RecyclerView.Adapter<RecyclerView.ViewHo
             BotMsgItemRvBinding bindingBot = BotMsgItemRvBinding.inflate(LayoutInflater.from(parent.getContext()));
             return new BotViewHolder(bindingBot, this);
         }
-
     }
 
     @Override
@@ -72,8 +71,6 @@ public class AdapterChatMessage extends RecyclerView.Adapter<RecyclerView.ViewHo
         chatMessages.add(chatMessage);
         notifyItemInserted(chatMessages.size() - 1);
     }
-
-
 }
 class UserViewHolder extends RecyclerView.ViewHolder {
     UserMsgItemRvBinding binding;

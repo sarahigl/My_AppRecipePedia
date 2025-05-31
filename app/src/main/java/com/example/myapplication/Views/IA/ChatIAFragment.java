@@ -24,6 +24,7 @@ import com.example.myapplication.Model.IA.JSONParsing.OpenAiRequete;
 import com.example.myapplication.Model.IA.Message;
 import com.example.myapplication.Utils.API.ApiServiceIA;
 import com.example.myapplication.Utils.Adapter.AdapterChatMessage;
+import com.example.myapplication.Utils.MessageUtils;
 import com.example.myapplication.Utils.RetrofitClient;
 import com.example.myapplication.ViewModel.ChatIAViewModel;
 import com.example.myapplication.databinding.FragmentChatIABinding;
@@ -48,32 +49,27 @@ public class ChatIAFragment extends Fragment implements AdapterChatMessage.OnFav
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_chat_i_a, container, false);
-        Log.d("ChatIAFragment", "onCreateView called");
         binding = FragmentChatIABinding.inflate(inflater, container, false);
         inputchat = binding.inputchat;
         requeteIAViewModel = new ViewModelProvider(requireActivity()).get(ChatIAViewModel.class);
-        //Initialisation de RecyclerView et du gestionnaire de disposition// Obtient la référence au RecyclerView à partir du layout lié
+        //Initialisation de RecyclerView et du gestionnaire de disposition
+        // Obtient la référence au RecyclerView à partir du layout lié
         recyclerView= binding.rvchatUser;
         LinearLayoutManager linearLayoutManagerUser = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManagerUser);
-        //api service
-        apiServiceIA = RetrofitClient.getApiServiceIA();
-        //initilisation de l'adapter
-        chatMessageAdapter= new AdapterChatMessage(chatMessages);
+        apiServiceIA = RetrofitClient.getApiServiceIA(); //api service
+        chatMessageAdapter= new AdapterChatMessage(chatMessages);//initilisation de l'adapter
         //établie la communication entre l'adapter et le recyclerview (délégue la gestion de l'event)
         chatMessageAdapter.setOnFavClickListener(this);
         recyclerView.setAdapter(chatMessageAdapter);
         //send function
         binding.sendmessage.setOnClickListener(this::sendMessage);
-
         return binding.getRoot();
     }
     ///////////////////////FAVORISATION////////////////////////////////////////////
     public void addFavoris(String msg){
         String date = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-        int idUtilisateur = getLoggedInUserId();
+        int idUtilisateur = MessageUtils.getLoggedInUserId();
         MyDatabaseHelper databaseHelper = new MyDatabaseHelper(getContext());
         long rowId = databaseHelper.insertMessageData(msg, date,0, idUtilisateur);
         if(rowId == -1){
@@ -89,8 +85,6 @@ public class ChatIAFragment extends Fragment implements AdapterChatMessage.OnFav
     }
     ///////////////////////FAVORISATION FIN////////////////////////////////////////////
     public void makeApiCall(OpenAiRequete openAiRequete){
-        //API call
-        //Log.d("ChatIAFragment", "Making API call...");
         apiServiceIA.createRequest(openAiRequete).enqueue(new Callback<OpenAiReponse>() {
             @SuppressLint("RestrictedApi")
             @Override
@@ -108,16 +102,21 @@ public class ChatIAFragment extends Fragment implements AdapterChatMessage.OnFav
                     //Log.e("ChatIAFragment", "API call failed with code: " + response.code());
                     switch (response.code()) {
                         case 401 :
-                            Toast.makeText(getActivity(), "Erreur d'authentification. Veuillez vérifier que vous avez bien renseigné votre clé API", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Erreur d'authentification. " +
+                                    "Veuillez vérifier que vous avez bien renseigné votre clé API",
+                                    Toast.LENGTH_SHORT).show();
                             break;
                         case 403:
-                            Toast.makeText(getContext(), "Vous avez peut-être dépassé la limite de requêtes.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Vous avez peut-être dépassé la limite de requêtes.",
+                                    Toast.LENGTH_LONG).show();
                             break;
                         case 500:
-                            Toast.makeText(getContext(), "Erreur interne du serveur. Veuillez réessayer plus tard.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Erreur interne du serveur. Veuillez réessayer plus tard.",
+                                    Toast.LENGTH_LONG).show();
                             break;
                         default:
-                            Toast.makeText(getContext(), "Une erreur est survenue. Veuillez réessayer plus tard.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Une erreur est survenue. Veuillez réessayer plus tard.",
+                                    Toast.LENGTH_LONG).show();
                             break;
                     }
                 }
@@ -134,11 +133,7 @@ public class ChatIAFragment extends Fragment implements AdapterChatMessage.OnFav
 
     }
     public void sendMessage(View view) {
-//        String date = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
         String message = Objects.requireNonNull(binding.inputchat.getText()).toString().trim();
-        //Boolean status = false;
-        //teporary solution to modifify later with id loggged user
-        //int idUtilisateur = getLoggedInUserId();
         //empêche les messages vides
         if (message.length() < 2) {
             binding.inputchat.setError("Veuillez saisir un message de plus de 2 caractères");
@@ -150,24 +145,13 @@ public class ChatIAFragment extends Fragment implements AdapterChatMessage.OnFav
             return;
         }
         // regex pour ne garder que les caractères autorisés
-        String regex = "^[a-zA-Z0-9\\s.,?!'()àâäéèêëîïôöùûüçœŒ-]+$";
-        if (!message.matches(regex)) {
-            message = message.replaceAll("[^a-zA-Z0-9\\s.,?!'()àâäéèêëîïôöùûüçœŒ-]", "");
-        }
+        message = MessageUtils.sanitizeMessage(message);
         chatMessageAdapter.addMessage(new Message(message, Message.TYPE_USER));
         binding.inputchat.setText("");
-
         //creation objet requeteOpenIA qui sera envoyé à openAI api
-        List<MessageDTO> messagesDTO = new ArrayList<>();
-        messagesDTO.add(new MessageDTO("system", "Tu es un assistant spécialisé en cuisine. Tu réponds uniquement aux questions liées à la cuisine, aux recettes, aux ingrédients et à la préparation des repas. Si une demande ne concerne pas la cuisine, tu dois répondre : 'Je suis un assistant culinaire et je ne peux répondre qu'à des questions sur la cuisine.'"));//ajouter la limite de charactere pour la recette et la preparation
-        messagesDTO.add(new MessageDTO("user", message));
-        OpenAiRequete openAiRequete = new OpenAiRequete("gpt-4o-mini", messagesDTO);
-
+        OpenAiRequete openAiRequete = MessageUtils.buildRequeteOpenAI(message);
         //envoyer la requete à l'API
         makeApiCall(openAiRequete);
-    }
-    private int getLoggedInUserId() {
-        return 1; // Temporaire
     }
 
     @Override
@@ -175,6 +159,5 @@ public class ChatIAFragment extends Fragment implements AdapterChatMessage.OnFav
         super.onDestroyView();
         binding = null;
     }
-
 
 }

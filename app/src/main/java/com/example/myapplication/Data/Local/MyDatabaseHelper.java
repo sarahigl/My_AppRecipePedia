@@ -60,7 +60,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
 
         String createTableMessage = "CREATE TABLE IF NOT EXISTS " + tableMessage.TABLE_NAME + " (" +
                 tableMessage.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                COLUMN_MESSAGE + " TEXT NOT NULL, " +
+                tableMessage.COLUMN_MESSAGE + " TEXT NOT NULL, " +
                 tableMessage.COLUMN_DATE + " TEXT NOT NULL, " + //SQLite utilise le type TEXT pour stocker les dates
                 tableMessage.COLUMN_TYPE_MESSAGE + " INTEGER NOT NULL, " +
                 tableMessage.COLUMN_ID_USER + " INTEGER, " +
@@ -70,7 +70,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
     }
 //V1 application le type de message sera toujours le meme => type = 0 (bot assistant IA)
     public long insertMessageData(String message, String date, int type, int idUser){
-        String sql = "INSERT INTO " + tableMessage.TABLE_NAME + " ( " + COLUMN_MESSAGE + ", " + tableMessage.COLUMN_DATE +", " + tableMessage.COLUMN_TYPE_MESSAGE +", "+ tableMessage.COLUMN_ID_USER +") VALUES ( ?, ?, ?, ? );";
+        String sql = "INSERT INTO " + tableMessage.TABLE_NAME + " ( " + COLUMN_MESSAGE + ", "
+                + tableMessage.COLUMN_DATE +", " + tableMessage.COLUMN_TYPE_MESSAGE
+                +", "+ tableMessage.COLUMN_ID_USER
+                +") VALUES ( ?, ?, ?, ? );";
         SQLiteDatabase db = this.getWritableDatabase();
         SQLiteStatement statement = db.compileStatement(sql);
         db.beginTransactionNonExclusive();

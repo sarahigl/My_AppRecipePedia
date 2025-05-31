@@ -8,6 +8,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class OpenAiReponse {
+
+    // L'annotation "@SerializedName("choices")" est utilisée par la bibliothèque de parsing JSON (comme Gson ou Moshi).
+    // Elle indique que lorsque Retrofit (qui utilise cette bibliothèque) reçoit une réponse JSON,
+    // il doit chercher un champ nommé "choices" dans le JSON et mapper sa valeur à cette variable "choices".
     @SerializedName("choices")
     private Choice[] choices;
 
@@ -18,7 +22,9 @@ public class OpenAiReponse {
     public void setChoices(Choice[] choices) {
         this.choices = choices;
     }
-
+    // méthode utilitaire :
+    // Son but est de récupérer le contenu du message de l'IA de manière simple.
+    // Elle retourne une chaîne de caractères (String).
     public String getMessage() {
         if (choices != null && choices.length > 0) {
             return choices[0].getMessage().getContent();
